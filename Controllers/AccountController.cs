@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using API_Users.Models;
-using API_Users.Repositories;
+using Keepr.Models;
+using Keepr.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API_Users.Controllers
+namespace Keepr.Controllers
 {
     [Route("[controller]")]
     public class AccountController : Controller
@@ -95,6 +95,12 @@ namespace API_Users.Controllers
         }
 
 
+    [HttpDelete("logout")]
+    public async Task<string> Logout()
+    {
+      await HttpContext.SignOutAsync();
+      return "succesfully logged out";
+    }
 
     }
 }

@@ -1,0 +1,2 @@
+-- GET FROM DB_TABLE
+SELECT * FROM users;

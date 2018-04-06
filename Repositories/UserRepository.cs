@@ -1,10 +1,11 @@
 using System;
 using System.Data;
-using API_Users.Models;
+using Keepr.Models;
 using Dapper;
 using MySql.Data.MySqlClient;
+using Keepr.Repositories;
 
-namespace API_Users.Repositories
+namespace Keepr.Repositories
 {
     public class UserRepository : DbContext
     {
@@ -67,8 +68,7 @@ namespace API_Users.Repositories
         internal UserReturnModel GetUserById(string id)
         {
             User savedUser = _db.QueryFirstOrDefault<User>(@"
-            SELECT * FROM users WHERE id = @id
-            ", new { id });
+            SELECT * FROM users WHERE id = @id", new { id });
             return savedUser.GetReturnModel();
         }
 
