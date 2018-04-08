@@ -1,111 +1,135 @@
 using System;
 using System.Data;
-using Keepr.Models;
+using keepr.Models;
 using Dapper;
-using MySql.Data.MySqlClient;
-using Keepr.Repositories;
 
-namespace Keepr.Repositories
+namespace keepr.Repositories
 {
-    public class UserRepository : DbContext
+  public class UserRepository
+  {
+    private readonly IDbConnection _db;
+    public UserRepository(IDbConnection db)
     {
-        public UserRepository(IDbConnection db) : base(db)
-        {
-        }
+      _db = db;
+    }
 
-        public UserReturnModel Register(RegisterUserModel creds)
-        {
-            // encrypt the password??
-            creds.Password = BCrypt.Net.BCrypt.HashPassword(creds.Password);
-            //sql
-            try
-            {
-                int id = _db.ExecuteScalar<int>(@"
-                INSERT INTO users (Username, Email, Password)
-                VALUES (@Username, @Email, @Password);
-                SELECT LAST_INSERT_ID();
-            ", creds);
+    public UserReturnModel Register(UserCreateModel userData)
+    {
+      //Generate an ID
+      Guid g;
+      // Create and display the value of two GUIDs.
+      g = Guid.NewGuid();
+      string id = g.ToString();
+      string pass = BCrypt.Net.BCrypt.HashPassword(userData.Password);
 
-                return new UserReturnModel()
-                {
-                    Id = id,
-                    Username = creds.Username,
-                    Email = creds.Email
-                };
-            }
-            catch (MySqlException e)
-            {
-                System.Console.WriteLine("ERROR: " + e.Message);
-                return null;
-            }
-        }
+      //construct a user
+      User user = new User()
+      {
+        Id = id,
+        Name = userData.Name,
+        Email = userData.Email,
+        Password = pass,// lets encrypt userData.Password
+      };
 
-        public UserReturnModel Login(LoginUserModel creds)
-        {
-            // more sql
-            User user = _db.QueryFirstOrDefault<User>(@"
-                SELECT * FROM users WHERE email = @Email
-            ", creds);
-            if (user != null)
-            {
-                var valid = BCrypt.Net.BCrypt.Verify(creds.Password, user.Password);
-                if (valid)
-                {
-                    return user.GetReturnModel();
-                }
-            }
-            return null;
-        }
+      // run a sql command
+      var success = _db.Execute(@"
+        INSERT INTO users(
+          id,
+          name, 
+          email,
+          password
+        ) VALUES(
+          @Id,
+          @Name,
+          @Email,
+          @Password
+        )
+      ", user);
+      if (success < 1)
+      {
+        throw new Exception("EMAIL IN USE");
+      }
+      // create and return a user return model
+      return new UserReturnModel()
+      {
+        Id = user.Id,
+        Name = user.Name,
+        Email = user.Email
+      };
+    }
 
-        internal UserReturnModel GetUserByEmail(string email)
-        {
-            User user = _db.QueryFirstOrDefault<User>(@"
-                SELECT * FROM users WHERE email = @Email
-            ", new { email });
-            return user.GetReturnModel();
-        }
+    public UserReturnModel Login(UserLoginModel userData)
+    {
+      // step1? Look up user by email
+      User user = _db.QueryFirstOrDefault<User>(@"
+        SELECT * FROM users WHERE email = @Email
+      ", userData);
 
-        internal UserReturnModel GetUserById(string id)
+      // step2? Check password is valid
+      Boolean valid = BCrypt.Net.BCrypt.Verify(userData.Password, user.Password);
+      if (valid)
+      {
+        return new UserReturnModel()
         {
-            User savedUser = _db.QueryFirstOrDefault<User>(@"
-            SELECT * FROM users WHERE id = @id", new { id });
-            return savedUser.GetReturnModel();
-        }
+          Id = user.Id,
+          Name = user.Name,
+          Email = user.Email
+        };
+      }
+      throw new Exception("Invalid Credentials");
+    }
 
-        internal UserReturnModel UpdateUser(UserReturnModel user)
-        {
-            var i = _db.Execute(@"
+    public UserReturnModel GetUserById(string id)
+    {
+      User user = _db.QueryFirstOrDefault<User>(@"
+        SELECT * FROM users WHERE id = @Id
+       ", new { Id = id });
+
+      // if (user == null) { throw new Exception("Oh Boy something very bad happened"); }
+
+      return new UserReturnModel()
+      {
+        Id = user.Id,
+        Name = user.Name,
+        Email = user.Email
+      };
+    }
+
+    internal UserReturnModel UpdateAccount(UserReturnModel user, UserReturnModel userData)
+    {
+      var i = _db.Execute(@"
                 UPDATE users SET
                     email = @Email,
-                    username = @Username
-                WHERE id = @id
-            ", user);
-            if (i > 0)
-            {
-                return user;
-            }
-            return null;
+                    name = @Name
+                WHERE id = @Id
+            ", userData);
+      if (i > 0)
+      {
+        return userData;
+      }
+      return null;
 
-        }
+    }
 
-        internal string ChangeUserPassword(ChangeUserPasswordModel user)
-        {
-            User savedUser = _db.QueryFirstOrDefault<User>(@"
+
+    internal string ChangeUserPassword(ChangeUserPasswordModel user)
+    {
+      User savedUser = _db.QueryFirstOrDefault<User>(@"
             SELECT * FROM users WHERE id = @id
             ", user);
 
-            var valid = BCrypt.Net.BCrypt.Verify(user.OldPassword, savedUser.Password);
-            if (valid)
-            {
-                user.NewPassword = BCrypt.Net.BCrypt.HashPassword(user.NewPassword);
-                var i = _db.Execute(@"
+      var valid = BCrypt.Net.BCrypt.Verify(user.OldPassword, savedUser.Password);
+      if (valid)
+      {
+        user.NewPassword = BCrypt.Net.BCrypt.HashPassword(user.NewPassword);
+        var i = _db.Execute(@"
                     UPDATE users SET
                         password = @NewPassword
                     WHERE id = @id
                 ", user);
-                return "Good Job";
-            }
-            return "Umm nope!";
-        }
+        return "Good Job";
+      }
+      return "Umm nope!";
     }
+  }
 }

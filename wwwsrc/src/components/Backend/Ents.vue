@@ -3,16 +3,14 @@
     <div>
 
       <ul>
+        
         <li>
-          <a href='#' @click="getBurgers">Posts</a>
-        </li>
-        <li>
-          <burgers :burger="burger" v-for="burger in Burgers" :key="burger.id"></burgers>
+          <keep v-on:keepToEdit="keepToEdit($event)" :keep="keep" v-for="keep in keeps" :key="keep.id"></keep>
         </li>
         <ul>
 
 
-          <li>Posts</i>
+          <li>keeps</i>
           </li>
 
           <li>
@@ -25,17 +23,17 @@
       </ul>
     </div>
     <div>
-      <p>Create a Burger</p>
+      <p>Create a keep</p>
       <form>
         <p>Name</p>
-        <input v-model="burger.name" placeholder="name">
+        <input v-model="newkeep.name" placeholder="name">
         <p>description</p>
-        <input v-model="burger.description" placeholder="description">
+        <input v-model="newkeep.description" placeholder="description">
         <p>price</p>
-        <input v-model="burger.price" placeholder="price">
+        <input v-model="newkeep.price" placeholder="price">
         <p>Kcal</p>
-        <input v-model="burger.kCal" placeholder="kCal">
-        <button @click.prevent="sendBurger" type="submit">Submit</button>
+        <input v-model="newkeep.kCal" placeholder="kCal">
+        <button @click.prevent="sendkeep" type="submit">Submit</button>
       </form>
 
       <!-- <form>
@@ -53,43 +51,73 @@
           </p>
           </form> -->
     </div>
+    <div>
+        <p>Edit a keep</p>
+        <form>
+          <p>Name</p>
+          <input v-model="editkeep.name" placeholder="name">
+          <p>description</p>
+          <input v-model="editkeep.description" placeholder="description">
+          <p>price</p>
+          <input v-model="editkeep.price" placeholder="price">
+          <p>Kcal</p>
+          <input v-model="editkeep.kCal" placeholder="kCal">
+          <button @click.prevent="updatekeep" type="submit">Submit</button>
+        </form>
+    </div>
   </div>
 </template>
 
 <script>
 
-  import Posts from "./Posts"
+  import Keep from "./Keep"
   export default {
     name: 'Ents',
     components: {
-      burgers: Posts
+      keep: Keep
     },
     data() {
       return {
-        burger: {
+        newkeep: {
           name: "",
           description: "",
           price: "",
           kCal: ""
         },
+        editkeep: {
+          name: "",
+          description: "",
+          price: "",
+          kCal: ""
+        },
+        
       }
     },
+    
     computed: {
-      Posts() {
-        // return this.$store.state.allBurgers
+      keeps() {
+        return this.$store.state.allkeeps
       }
     },
     mounted(){
-        this.$store.dispatch('getPosts')
+        this.$store.dispatch('getAllkeeps')
       
     },
     methods: {
-      sendBurger() {
-        console.log("This is a burger", this.burger)
-        this.$store.dispatch('sendBurger', this.burger)
+      sendkeep() {
+        console.log("This is a keep", this.newkeep)
+        this.$store.dispatch('sendkeep', this.newkeep)
       },
-      getBurgers() {
-        this.$store.dispatch('getAllBurgers')
+      updatekeep() {
+        console.log("This is the keep to edit", this.editkeep)
+        this.$store.dispatch('updatekeep', this.editkeep)
+      },
+      getkeeps() {
+        this.$store.dispatch('getAllkeeps')
+      },
+      keepToEdit(keepToEdit) {
+        console.log('keep to edit',keepToEdit)
+        this.editkeep = keepToEdit
       }
     }
   }

@@ -31,8 +31,8 @@
     data() {
       return {
         user: {
-          password: '',
-          email: ''
+          Password: '',
+          Email: ''
         },
       }
     },

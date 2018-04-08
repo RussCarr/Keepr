@@ -35,7 +35,7 @@ export default new vuex.Store({
       error: false,
       message: ""
     },
-    allBurgers: []
+    allkeeps: []
   },
 
   mutations: {
@@ -48,8 +48,8 @@ export default new vuex.Store({
         message: error.message
       };
     },
-    setBurgers(state, allBurgers) {
-      state.allBurgers = allBurgers;
+    setkeeps(state, allkeeps) {
+      state.allkeeps = allkeeps;
     }
   },
 
@@ -101,9 +101,10 @@ export default new vuex.Store({
     },
 
     authenticateUser({ commit, dispatch }) {
-      auth
+      auth;
       console.log("returning user:1");
-        auth.get("authenticate")
+      auth
+        .get("authenticate")
         // console.log("returning user:2");
         .then(res => {
           console.log("returning user:", sessionUser);
@@ -135,10 +136,10 @@ export default new vuex.Store({
     },
     getAllUsers({ commit, dispatch }, user) {
       api
-        .get("/private/users",user)
+        .get("/private/users", user)
         .then(res => {
           console.log("User data", res.data);
-          var allUsers = res.data
+          var allUsers = res.data;
           allUsers.sort((projA, projB) => {
             return projB.createdAt - projA.createdAt;
           });
@@ -148,39 +149,43 @@ export default new vuex.Store({
           console.log(err);
         });
     },
-    getAllBurgers({ commit, dispatch }) {
+    getAllkeeps({ commit, dispatch }) {
       api
-        .get("/burgers")
+        .get("/keeps")
         .then(res => {
-          console.log("Burgers", res.data);
-          var allBurgers = res.data
-          allBurgers.sort((projA, projB) => {
+          console.log("keeps", res.data);
+          var allkeeps = res.data;
+          allkeeps.sort((projA, projB) => {
             return projB.createdAt - projA.createdAt;
           });
-          commit("setBurgers", allBurgers);
+          commit("setkeeps", allkeeps);
         })
         .catch(err => {
           console.log(err);
         });
     },
-    sendBurger({commit, dispatch}, payload){
-      api.post("/burgers", payload)
-      .then(res => {
-        dispatch('getAllBurgers')
-        .catch(err => {
+    sendkeep({ commit, dispatch }, payload) {
+      api.post("/keeps", payload).then(res => {
+        dispatch("getAllkeeps").catch(err => {
           console.log(err);
         });
-      })
+      });
     },
-    deleteBurger({commit, dispatch}, payload){
-      console.log("id",payload)
-      api.delete("/burgers/", payload)
-      .then(res => {
-        dispatch('getAllBurgers')
-        .catch(err => {
+    updatekeep({ commit, dispatch }, payload) {
+      api.put(`/keeps/${payload.id}`, payload).then(res => {
+        dispatch("getAllkeeps").catch(err => {
           console.log(err);
         });
-      })
+      });
+    },
+    deletekeep({ commit, dispatch }, payload) {
+      console.log("id", payload.id);
+      api.delete(`/keeps/${payload.id}`)
+      .then(res => {
+        dispatch("getAllkeeps").catch(err => {
+          console.log(err);
+        });
+      });
     }
 
     // API
