@@ -1,21 +1,21 @@
 <template>
     <div class="topbar bgcolor">
-
-        <div class="container-fluid d-flex align-items-center justify-content-between pt-3 pb-2 px-4">
-            <div>
-                <h1 class="h3 d-inline text-light font-weight-bold">Keepr</h1>
-            </div>
-            <div>
-                <button v-show="userStatus ? false : true" class="btn btn-success px-4" @click="$emit('showSignIn')">Sign in</button>
-                <button v-show="userStatus ? false : true" class="btn btn-alert px-4" @click="$emit('showRegister')">Register</button>
-                <button v-show="userStatus ? true : false" class="btn btn-alert px-4" @click="$emit('showMyKeeps')">MyKeeps</button>
-                <button v-show="userStatus ? true : false" class="btn btn-alert px-4" @click="logout">Logout</button>
-                <div>
-                    <span class="h5 text-light">{{user.name}}</span>
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1 class="h3 text-light font-weight-bold">Keepr</h1>
+                </div>
+                <div class="col-sm-2">
+                    <button v-show="userStatus ? false : true" class="btn btn-success " @click="$emit('showSignIn')">Sign in</button>
+                    <button v-show="userStatus ? false : true" class="btn btn-alert " @click="$emit('showRegister')">Register</button>
+                    <button v-show="userStatus ? true : false" class="btn btn-alert" @click="$emit('showMyKeeps')">MyKeeps</button>
+                    <button v-show="userStatus ? true : false" class="btn btn-alert " @click="logout">Logout</button>
+                </div>
+                <div class="col-sm-2">
+                    <p class="h5 text-light">User: <span class="h3 text-dark">{{user.username}}</span></p>
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -32,6 +32,7 @@
 
             }
         },
+        props: ['user'],
         computed: {
             user() {
                 return this.$store.state.user
@@ -52,6 +53,9 @@
 </script>
 
 <style scoped>
+   .topbar{
+       display: flex;
+   }
     img {
         width: 25px;
         margin-bottom: 0.4rem;
@@ -72,5 +76,7 @@
 
     .bgcolor {
         background-color: #015249;
+        height: 60px;
+        align-items: center;
     }
 </style>

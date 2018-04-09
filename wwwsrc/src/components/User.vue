@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <topBar @showMyKeeps="showMyKeeps = true"></topBar>
+    <topBar @showMyKeeps="showMyKeeps = true" :user="user" ></topBar>
     <myKeepsMenu v-if="showMyKeeps" @close="showMyKeeps = false" @closeMyKeeps="close($event)"></myKeepsMenu>
     <!-- <navbar></navbar> -->
     <h5>User Home Page</h5>
@@ -20,14 +20,19 @@
     },
     data() {
       return {
-        showMyKeeps: true
+        showMyKeeps: true,
+        user: this.$store.state.user
       }
+    },
+    computed: {
+      // getUser() {
+      //   return this.$store.state.user
+      // }
     },
     methods: {
       close() {
          console.log('part 3')
         this.showMyKeeps= false
-        
       }
     }
 
