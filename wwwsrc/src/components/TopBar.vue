@@ -12,7 +12,7 @@
                     <button v-show="userStatus ? true : false" class="btn btn-alert " @click="logout">Logout</button>
                 </div>
                 <div class="col-sm-2">
-                    <p class="h5 text-light">User: <span class="h3 text-dark">{{user.username}}</span></p>
+                    <p class="h5 text-light">User: <span class="h3 text-dark">{{user}}</span></p>
                 </div>
             </div>
         </div>
@@ -29,15 +29,15 @@
             return {
                 // showWelcome: true,
                 userStatus: this.$store.state.userStatus,
-
+                user: this.$store.state.user.username
             }
         },
-        props: ['user'],
+        // props: ['user'],
         computed: {
-            user() {
-                return this.$store.state.user
+            // user() {
+            //     return this.$store.state.user
 
-            },
+            // },
         },
         methods: {
             // signIn() {

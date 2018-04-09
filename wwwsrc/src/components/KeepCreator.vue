@@ -26,7 +26,7 @@
             </div>
             <div class="modal-footer">
               <button @click="$emit('close')">
-                OK
+                Done
               </button>
             </div>
           </div>
@@ -46,14 +46,21 @@
           link: "",
           tags: "",
           title: "",
-          userId: ""
+          userId: this.$store.state.user.id
         },
       }
     },
+    
     methods: {
       sendKeep() {
         console.log("This is a Keep", this.newKeep)
         this.$store.dispatch('createKeep', this.newKeep)
+        this.newKeep = {
+          img: "",
+          link: "",
+          tags: "",
+          title: ""
+        }
       },
     }
   }

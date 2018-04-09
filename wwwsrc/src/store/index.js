@@ -49,7 +49,7 @@ export default new vuex.Store({
         message: error.message
       };
     },
-    setkeep(state, allSharedKeeps) {
+    setKeep(state, allSharedKeeps) {
       state.allSharedKeeps = allSharedKeeps;
     },
     setUserStatus(state, payload) {

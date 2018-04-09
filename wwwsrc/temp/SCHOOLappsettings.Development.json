@@ -8,7 +8,8 @@
     }
   },
   "DB": {
-     "mySQLConnectionString": "host=localhost;port=3306;database=keepr;user id=russ;password=student"
+    "mySQLConnectionString":
+      "server=192.168.0.2;port=3306;database=racoonchaser;user id=student;password=student"
       
   }
 }

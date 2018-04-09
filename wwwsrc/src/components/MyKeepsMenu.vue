@@ -14,7 +14,7 @@
         <button class="btn btn-alarm px-4" @click="$emit('closeMyKeeps')">close</button>
       </div>
     </div>
-    <keepCreator v-if="showKeepCreator" @close="showKeepCreator = false"></keepCreator>
+    <keepCreator :user="user" v-if="showKeepCreator" @close="showKeepCreator = false"></keepCreator>
     <vaultCreator v-if="showVaultCreator" @close="showVaultCreator = false"></vaultCreator>
     <!-- <myKeeps :project='project' v-for='project in projects' :key='project._id'></myKeeps> -->
   </div>
@@ -36,9 +36,11 @@
     data() {
       return {
         showKeepCreator: false,
-        showVaultCreator: false
+        showVaultCreator: false,
+        user: {}
       }
     },
+    // props:['user'],
     computed: {
       //   projects() {
       //     return this.$store.state.userProjects
