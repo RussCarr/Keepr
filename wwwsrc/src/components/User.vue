@@ -4,6 +4,39 @@
     <myKeepsMenu v-if="showMyKeeps" @close="showMyKeeps = false" @closeMyKeeps="close($event)"></myKeepsMenu>
     <!-- <navbar></navbar> -->
     <h5>User Home Page</h5>
+    <div class="row ml-5">
+        <div class="col-sm-3 keep">
+          <img class="" src="http:\\placehold.it\250x200">
+          <hr>
+          <div class="row">
+            <div class="col text-center">
+              <span>keep#</span>
+              <span>Share#</span>
+              <span>View#</span>
+            </div>
+          </div>
+          <hr>
+          <p>Keep Discription</p>
+          <hr>
+          <div class="row">
+            <div class="col text-center">
+              <Button>keep</Button>
+              <Button>Share</Button>
+              <Button>View</Button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <p>Hello</p>
+        </div>
+        <div class="col-sm-3">
+          <p>Hello</p>
+        </div>
+        <div class="col-sm-3">
+          <p>Hello</p>
+        </div>
+      </div>
+    
 </div>
 </template>
 
@@ -40,10 +73,12 @@
 </script>
 
 <style scoped>
-  .user{
-    /* width: 80px;
+  .keep{
+    width: 80px;
     height: 400px;
-    outline: 1px solid black; */
+    justify-content: center;
+    outline: 1px solid black;
+    /* margin-left: 15px; */
     /* outline-style: solid;
     outline-color: red; */
   }
