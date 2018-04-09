@@ -1,22 +1,32 @@
 <template>
   <div class="user">
-    <topBar></topBar>
-    <navbar></navbar>
+    <topBar @showMyKeeps="showMyKeeps = true"></topBar>
+    <myKeepsMenu v-if="showMyKeeps" @close="showMyKeeps = false" @closeMyKeeps="close($event)"></myKeepsMenu>
+    <!-- <navbar></navbar> -->
     <h5>User Home Page</h5>
 </div>
 </template>
 
 <script>
   import TopBar from './TopBar'
-  import Navbar from './Navbar'
+  import MyKeepsMenu from './MyKeepsMenu'
+  // import Navbar from './Navbar'
   export default {
     name: 'User',
     components: {
       topBar: TopBar,
-      navbar: Navbar,
+      myKeepsMenu: MyKeepsMenu
+      // navbar: Navbar,
     },
     data() {
       return {
+        showMyKeeps: true
+      }
+    },
+    methods: {
+      close() {
+         console.log('part 3')
+        this.showMyKeeps= false
         
       }
     }

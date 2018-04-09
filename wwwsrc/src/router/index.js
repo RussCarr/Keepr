@@ -6,6 +6,8 @@ import Home from '@/components/Home'
 import User from '@/components/User'
 // @ts-ignore
 import Welcome from '@/components/Welcome'
+// @ts-ignore
+// import MyKeepsMenu from '@/components/MyKeepsMenu'
 Vue.use(Router)
 
 export default new Router({
@@ -17,7 +19,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/MyDash',
+      path: '/Main',
       name: 'User',
       component: User
     },
@@ -25,6 +27,10 @@ export default new Router({
       path: '/',
       name: 'Welcome',
       component: Welcome
-    },
+    },    // {
+    //   path: '/Main/MyKeepsMenu',
+    //   name: 'MyKeeps',
+    //   component: MyKeepsMenu
+    // },
      ]
 })

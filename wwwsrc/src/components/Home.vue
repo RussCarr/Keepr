@@ -56,7 +56,7 @@
 
 <script>
   import TopBar from './TopBar'
-  import Navbar from './Navbar'
+  // import Navbar from './Navbar'
   import SignIn from './Backend/SignIn'
   import Register from './Backend/Register'
   // import Welcome from './Welcome'
@@ -65,7 +65,7 @@
     name: 'Home',
     components: {
       topBar: TopBar,
-      navbar: Navbar,
+      // navbar: Navbar,
       signIn: SignIn,
       register: Register,
       // welcome: Welcome,

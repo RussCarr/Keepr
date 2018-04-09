@@ -8,13 +8,12 @@
             <div>
                 <button v-show="userStatus ? false : true" class="btn btn-success px-4" @click="$emit('showSignIn')">Sign in</button>
                 <button v-show="userStatus ? false : true" class="btn btn-alert px-4" @click="$emit('showRegister')">Register</button>
-                <button v-show="userStatus ? true : false" class="btn btn-alert px-4" @click="$emit('showRegister')">MyKeeps</button>
+                <button v-show="userStatus ? true : false" class="btn btn-alert px-4" @click="$emit('showMyKeeps')">MyKeeps</button>
                 <button v-show="userStatus ? true : false" class="btn btn-alert px-4" @click="logout">Logout</button>
                 <div>
                     <span class="h5 text-light">{{user.name}}</span>
                 </div>
             </div>
-
         </div>
 
     </div>
@@ -25,32 +24,29 @@
     export default {
         name: 'TopBar',
         components: {
-
-
         },
         data() {
             return {
-                showWelcome: true,
-                userStatus: this.$store.state.userStatus
+                // showWelcome: true,
+                userStatus: this.$store.state.userStatus,
+
             }
         },
         computed: {
             user() {
                 return this.$store.state.user
-            },
-            // userStatus() {
-            //     return this.$store.state.userStatus
-            // }
-        },
-        methods: {
-            signIn() {
-                console.log('stage 1')
-                this.$emit('signIn', true)
 
             },
+        },
+        methods: {
+            // signIn() {
+            //     console.log('stage 1')
+            //     this.$emit('signIn', true)
+
+            // },
             logout() {
-        this.$store.dispatch('logoutUser')
-      }
+                this.$store.dispatch('logoutUser')
+            },
         }
     }
 </script>
