@@ -10,8 +10,15 @@ namespace keepr.Models
 
     [Required]
     [MinLength(3)]
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Title { get; set; }
+    [Required]
+    public string Img { get; set; }
+    [Required]
+    public string Link { get; set; }
+
+    public string Tags { get; set; }
+    [Required]
+    public string UserId { get; set; }
 
   }
 }

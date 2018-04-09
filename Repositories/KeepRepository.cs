@@ -21,11 +21,12 @@ namespace keepr.Repositories
     {
       int id = _db.ExecuteScalar<int>($@"
       INSERT INTO keeps (
-        username,
-        description,
-        price,
-        kcal
-      ) VALUES (@Username, @Description, @Price, @KCal)", keep);
+        img,
+        link,
+        tags,
+        title,
+        userId
+      ) VALUES (@Img, @Link, @Tags, @Title,@Userid)", keep);
       keep.Id = id;
       return keep;
     }
@@ -47,9 +48,10 @@ namespace keepr.Repositories
     {
       return _db.QueryFirstOrDefault<keep>($@"
                 UPDATE keeps SET  
-                    Name = @Name,
-                    Description = @Description,
-                    Price = @Price
+                    Img = @Img,
+                    Link = @Link,
+                    Tags = @Tags,
+                    Title = @Title
                 WHERE Id = {id};
                 SELECT * FROM keeps WHERE id = {id};", keep);
     }

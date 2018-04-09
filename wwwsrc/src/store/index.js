@@ -35,7 +35,7 @@ export default new vuex.Store({
       error: false,
       message: ""
     },
-    allkeeps: [],
+    allSharedKeeps: [],
     userStatus: false
   },
 
@@ -49,8 +49,8 @@ export default new vuex.Store({
         message: error.message
       };
     },
-    setkeeps(state, allkeeps) {
-      state.allkeeps = allkeeps;
+    setkeep(state, allSharedKeeps) {
+      state.allSharedKeeps = allSharedKeeps;
     },
     setUserStatus(state, payload) {
       state.userStatus = payload;
@@ -164,45 +164,87 @@ export default new vuex.Store({
           console.log(err);
         });
     },
-    getAllkeeps({ commit, dispatch }) {
+    //Api
+    //Vaults
+    getAllVaults({ commit, dispatch }) {
       api
-        .get("/keeps")
+        .get("/Vaults")
         .then(res => {
-          console.log("keeps", res.data);
-          var allkeeps = res.data;
-          allkeeps.sort((projA, projB) => {
+          console.log("Vaults", res.data);
+          var allVaults = res.data;
+          allVaults.sort((projA, projB) => {
             return projB.createdAt - projA.createdAt;
           });
-          commit("setkeeps", allkeeps);
+          commit("setVaults", allVaults);
         })
         .catch(err => {
           console.log(err);
         });
     },
-    sendkeep({ commit, dispatch }, payload) {
-      api.post("/keeps", payload).then(res => {
-        dispatch("getAllkeeps").catch(err => {
+    sendVault({ commit, dispatch }, payload) {
+      api.post("/Vaults", payload).then(res => {
+        dispatch("getAllVaults").catch(err => {
           console.log(err);
         });
       });
     },
-    updatekeep({ commit, dispatch }, payload) {
+    updateVault({ commit, dispatch }, payload) {
       api.put(`/keeps/${payload.id}`, payload).then(res => {
-        dispatch("getAllkeeps").catch(err => {
+        dispatch("getAllVaults").catch(err => {
           console.log(err);
         });
       });
     },
-    deletekeep({ commit, dispatch }, payload) {
+    deleteVault({ commit, dispatch }, payload) {
       console.log("id", payload.id);
-      api.delete(`/keeps/${payload.id}`)
+      api.delete(`/Vaults/${payload.id}`)
       .then(res => {
-        dispatch("getAllkeeps").catch(err => {
+        dispatch("getAllVaults").catch(err => {
           console.log(err);
         });
       });
-    }
+    },
+    
+   
+  //Keeps
+  getAllSharedKeeps({ commit, dispatch }) {
+    api
+      .get("/Keeps")
+      .then(res => {
+        console.log("Keeps", res.data);
+        var allSharedKeeps = res.data;
+        allSharedKeeps.sort((projA, projB) => {
+          return projB.createdAt - projA.createdAt;
+        });
+        commit("setKeep", allSharedKeeps);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  createKeep({ commit, dispatch }, keep) {
+    api.post("/Keeps", keep).then(res => {
+      dispatch("getAllSharedKeeps").catch(err => {
+        console.log(err);
+      });
+    });
+  },
+  updateKeep({ commit, dispatch }, payload) {
+    api.put(`/Keeps/${payload.id}`, payload).then(res => {
+      dispatch("getAllShaedKeeps").catch(err => {
+        console.log(err);
+      });
+    });
+  },
+  deleteKeep({ commit, dispatch }, payload) {
+    console.log("id", payload.id);
+    api.delete(`/Keeps/${payload.id}`).then(res => {
+      dispatch("getAllSharedKeeps").catch(err => {
+        console.log(err);
+      });
+    });
+  
+  }
 
-    // API
   }
 });

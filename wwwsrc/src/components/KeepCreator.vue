@@ -42,17 +42,18 @@
     data() {
       return {
         newKeep: {
-          title: "",
           img: "",
           link: "",
-          tags: ""
+          tags: "",
+          title: "",
+          userId: ""
         },
       }
     },
     methods: {
       sendKeep() {
         console.log("This is a Keep", this.newKeep)
-        this.$store.dispatch('sendKeep', this.newKeep)
+        this.$store.dispatch('createKeep', this.newKeep)
       },
     }
   }
