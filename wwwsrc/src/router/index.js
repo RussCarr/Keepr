@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Welcome from '@/components/Backend/Welcome'
-import Home from '@/components/Backend/Home'
+// @ts-ignore
+import Home from '@/components/Home'
+// @ts-ignore
+import User from '@/components/User'
+// @ts-ignore
+import Welcome from '@/components/Welcome'
 Vue.use(Router)
 
 export default new Router({
@@ -9,13 +13,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Welcome',
-      component: Welcome
-    },
-    {
-      path: '/backend',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/MyDash',
+      name: 'User',
+      component: User
+    },
+    {
+      path: '/',
+      name: 'Welcome',
+      component: Welcome
     },
      ]
 })

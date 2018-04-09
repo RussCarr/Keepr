@@ -10,7 +10,7 @@ namespace keepr.Models
     [Required]
     public string Id { get; set; }
 
-    public string Name { get; set; }
+    public string Username { get; set; }
 
     [Required]
     [EmailAddress]
@@ -23,7 +23,7 @@ namespace keepr.Models
 
   public class UserCreateModel
   {
-    public string Name { get; set; }
+    public string Username { get; set; }
     [Required]
     [EmailAddress]
     public string Email { get; set; }
@@ -50,7 +50,7 @@ namespace keepr.Models
     [Required]
     [EmailAddress]
     public string Email { get; set; }
-    public string Name { get; set; }
+    public string Username { get; set; }
 
     //setting up session tokens AKA Claims (auto login)
     public ClaimsPrincipal SetClaims()
@@ -70,7 +70,7 @@ namespace keepr.Models
 
   public class PublicUserModel
   {
-    public string Name { get; set; }
+    public string Username { get; set; }
   }
 
   public class ChangeUserPasswordModel

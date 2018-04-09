@@ -1,21 +1,18 @@
-using keepr.Interfaces;
+
 namespace keepr.Models
 {
 
-  public class Drink : IMenuItem
+  public class Vault 
   {
+    public int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    public double Price { get; set; }
-    public string Ingredients { get; set; }
-    public int KCal { get; set; }
-
-    public Drink(string name, string desc, double price, string ingredients)
+ 
+    public Vault(string name, string desc)
     {
       Name = name;
       Description = desc;
-      Price = price;
-      Ingredients = ingredients;
+    
     }
   }
 }

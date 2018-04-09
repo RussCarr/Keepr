@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
 {
-  [Route("[controller]")]
+  [Route("auth/[controller]")]
   public class AccountController : Controller
   {
 
@@ -45,6 +45,7 @@ namespace keepr.Controllers
     [HttpPost("login")]
     public async Task<UserReturnModel> Login([FromBody] UserLoginModel userData)
     {
+      System.Console.WriteLine(userData);
       if (!ModelState.IsValid) { return null; }
 
       try

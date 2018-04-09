@@ -15,7 +15,7 @@ var api = axios.create({
 });
 
 var auth = axios.create({
-  baseURL: baseUrl + "Account/",
+  baseURL: baseUrl + "auth/",
   timeout: 3000,
   withCredentials: true
 });
@@ -35,7 +35,8 @@ export default new vuex.Store({
       error: false,
       message: ""
     },
-    allkeeps: []
+    allkeeps: [],
+    userStatus: false
   },
 
   mutations: {
@@ -50,6 +51,9 @@ export default new vuex.Store({
     },
     setkeeps(state, allkeeps) {
       state.allkeeps = allkeeps;
+    },
+    setUserStatus(state, payload) {
+      state.userStatus = payload;
     }
   },
 
@@ -58,14 +62,15 @@ export default new vuex.Store({
     registerUser({ commit, dispatch }, userData) {
       console.log("User:", userData);
       auth
-        .post("Register", userData)
+        .post("Account/Register", userData)
         .then(res => {
           var newUser = res.data;
           console.log("newUser:", newUser);
           commit("setUser", newUser);
           commit("setAuthError", { error: false, message: "" });
+          commit('setUserStatus', true)
           router.push({
-            name: "Home"
+            name: "User"
           });
         })
         .catch(err => {
@@ -80,16 +85,24 @@ export default new vuex.Store({
 
     loginUser({ commit, dispatch }, user) {
       auth
-        .post("login", user)
+        .post("Account/Login", user)
         .then(res => {
           var newUser = res.data;
           console.log("logged-in user:", newUser);
           commit("setUser", newUser);
-          commit("setAuthError", { error: false, message: "" });
-          // dispatch("getUserProjects");
-          router.push({
-            name: "Home"
-          });
+          if (newUser == "") {
+            console.log ('Im at the gate',newUser)
+            commit("setAuthError", { error: true, message: "Log-in failed: Invalid username or password" });
+            router.push({
+              name: "Home"
+            });
+          } else {
+            // dispatch("getLatestProject", newUser._id);
+            commit('setUserStatus', true)
+            router.push({
+              name: "User"
+            });
+          }
         })
         .catch(err => {
           console.log(err);
@@ -104,15 +117,16 @@ export default new vuex.Store({
       auth;
       console.log("returning user:1");
       auth
-        .get("authenticate")
+        .get("Account/Authenticate")
         // console.log("returning user:2");
         .then(res => {
           console.log("returning user:", sessionUser);
           var sessionUser = res.data;
           console.log("returning user2:", sessionUser);
           commit("setUser", sessionUser);
+          commit('setUserStatus', true)
           router.push({
-            name: "Home"
+            name: "User"
           });
         })
         .catch(err => {
@@ -121,13 +135,14 @@ export default new vuex.Store({
     },
     logoutUser({ commit, dispatch }) {
       auth
-        .delete("logout")
+        .delete("Account/Logout")
         .then(() => {
           console.log("User logged out");
           commit("setUser", {});
           commit("setAuthError", { error: false, message: "" });
+          commit('setUserStatus', false)
           router.push({
-            name: "Welcome"
+            name: "Home"
           });
         })
         .catch(err => {
