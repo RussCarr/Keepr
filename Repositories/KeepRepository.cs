@@ -25,8 +25,11 @@ namespace keepr.Repositories
         link,
         tags,
         title,
-        userId
-      ) VALUES (@Img, @Link, @Tags, @Title,@Userid)", keep);
+        userId,
+        CountShare,
+        CountKeep,
+        CountView
+      ) VALUES (@Img, @Link, @Tags, @Title,@Userid,@CountShare,@CountKeep,@CountView)", keep);
       keep.Id = id;
       return keep;
     }
@@ -52,6 +55,9 @@ namespace keepr.Repositories
                     Link = @Link,
                     Tags = @Tags,
                     Title = @Title
+                    CountShare = @CountShare
+                    CountKeep = @CountKeep
+                    CountView = @CountView
                 WHERE Id = {id};
                 SELECT * FROM keeps WHERE id = {id};", keep);
     }

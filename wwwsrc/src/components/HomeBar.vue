@@ -1,18 +1,15 @@
 <template>
-    <div class="topbar bgcolor">
+    <div class="homebar bgcolor">
         <div class="container-fluid ">
             <div class="row">
                 <div class="col-sm-8">
                     <h1 class="h3 text-light font-weight-bold">Keepr</h1>
                 </div>
-                <div class="col-sm-2">
-                    
-                    <button  class="btn btn-alert" @click="$emit('showMyKeeps')">MyKeeps</button>
-                    <button  class="btn btn-alert " @click="logout">Logout</button>
+                <div class="col-sm-4">
+                    <button class="btn btn-success " @click="$emit('showSignIn')">Sign in</button>
+                    <button class="btn btn-alert " @click="$emit('showRegister')">Register</button>
                 </div>
-                <div class="col-sm-2">
-                    <p class="h5 text-light">User: <span class="h3 text-dark">{{user}}</span></p>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -21,7 +18,7 @@
 <script>
 
     export default {
-        name: 'TopBar',
+        name: 'HomeBar',
         components: {
         },
         data() {
@@ -52,7 +49,7 @@
 </script>
 
 <style scoped>
-   .topbar{
+   .homebar{
        display: flex;
    }
     img {

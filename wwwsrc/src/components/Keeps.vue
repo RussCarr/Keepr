@@ -8,6 +8,43 @@
           <span>{keep.shareCount}#</span>
           <span>{keep.viewCount}#</span>
         </div>
+        <div class="col-sm-4">
+            <div class="row share-icons-wrapper">
+              <div class="col share-icons">
+                <p class="createdBy">{sharedProject.playCount}</p>
+                <!-- <player class="centerFlex" :project="sharedProject" :largeButtons="false" :allowPlayCountUpdate="true"></player> -->
+              </div>
+              <div class="col share-icons">
+                <p class="createdBy">{sharedProject.forkCount}</p>
+                <a href="#" class="text-light" @click.prevent="forkProject">
+                  <i class="fas fa-code-branch"></i>
+                </a>
+              </div>
+              <div class="col share-icons">
+                <p class="createdBy">{sharedProject.shareCount}</p>
+                <a href="#" class="text-light" @click.prevent="shareBox= shareBox ? false : true">
+                  <i class="fas fa-share"></i>
+                </a>
+              </div>
+              <div class="col-sm-12">
+                <div v-if="shareBox" class="shareButton">
+                  <p>
+                      <a :href='facebook' class="share-icon" @click='updateShareCount' target="_blank" title="Share on Facebook">
+                          <i class="fab fa-facebook"></i>
+                        </a>
+                  </p>
+                  <p>
+                    <a class="share-icon" @click='updateShareCount' :href="twitter" target="_blank" >
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </p>
+              
+                </div>
+                <!-- <div v-if="mailBox" class="mail"> -->
+                  <!-- <mail v-on:mailBox="mailBox=false" :loggedInUser="loggedInUser" :sharedProject="sharedProject"></mail> -->
+                </div>
+              </div>
+           </div>
       </div>
       <hr>
       <a href=''>{{keep.title}}</a>
@@ -27,6 +64,7 @@
     name: 'Keeps',
     data() {
       return {
+        shareBox: false,
         // user: {
         //   Password: '',
         //   Email: '',

@@ -6,9 +6,11 @@ namespace keepr.Models
 
   public class keep
   {
-  
-    public int Id { get; set; }
 
+    public int Id { get; set; }
+    public int CountShare { get; set; } = 0;
+    public int CountKeep { get; set; } = 0;
+    public int CountView { get; set; } = 0;
     [Required]
     public string Img { get; set; }
     [Required]

@@ -1,59 +1,82 @@
 <template>
-  <div class="wrapper">
-
-    <div class="navbar container-fluid row text-light">
-      <div class="container-fluid py-3 px-5">
-
-        <div class="homelink navlink col-4 text-center py-3 rounded" @click="">
-          Home
+    <div class="navbar bgcolor">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1 class="h3 text-light font-weight-bold">Keepr</h1>
+                </div>
+                <div class="col-sm-2">
+                    <button v-show="userStatus ? false : true" class="btn btn-success " @click="$emit('showSignIn')">Sign in</button>
+                    <button v-show="userStatus ? false : true" class="btn btn-alert " @click="$emit('showRegister')">Register</button>
+                    <button v-show="userStatus ? true : false" class="btn btn-alert" @click="$emit('showMyKeeps')">MyKeeps</button>
+                    <button v-show="userStatus ? true : false" class="btn btn-alert " @click="logout">Logout</button>
+                </div>
+                <div class="col-sm-2">
+                    <p class="h5 text-light">User: <span class="h3 text-dark">{{user}}</span></p>
+                </div>
+            </div>
         </div>
-    
-        <div class="logout navlink col-4 text-center py-3 rounded" @click="logout">
-          Logout
-        </div>
-
-      </div>
     </div>
-
-
-  </div>
 </template>
 
 <script>
-  export default {
-    name: 'Navbar',
-    components: {
-      
-    },
-    data() {
-      return {
-       
-      }
-    },
-    computed: {
-      isHomeRoute() {
-        return this.$route.path === "/Home" || this.$route.path === "/home"
-      },
-         },
-    methods: {
-   
-      logout() {
-        this.$store.dispatch('logoutUser')
-      }
+
+    export default {
+        name: 'NavBar',
+        components: {
+        },
+        data() {
+            return {
+                // showWelcome: true,
+                userStatus: this.$store.state.userStatus,
+                user: this.$store.state.user.username
+            }
+        },
+        // props: ['user'],
+        computed: {
+            // user() {
+            //     return this.$store.state.user
+
+            // },
+        },
+        methods: {
+            // signIn() {
+            //     console.log('stage 1')
+            //     this.$emit('signIn', true)
+
+            // },
+            logout() {
+                this.$store.dispatch('logoutUser')
+            },
+        }
     }
-  }
 </script>
 
 <style scoped>
-    .navbar {
-        width: 100%;
-        padding: 0;
-        margin: 0;
-        background-color: #007e70;
+   .navbar{
+       display: flex;
+   }
+    img {
+        width: 25px;
+        margin-bottom: 0.4rem;
+        margin-right: 0.5rem;
     }
-    
-    .navlink:hover {
-        cursor: pointer;
-        background-color: #006559;
+
+    .logout {
+        flex-direction: row-reverse;
+        align-self: center;
+        display: flex
+    }
+
+    .menu {
+        flex-direction: row;
+        align-self: center;
+        display: flex
+    }
+
+    .bgcolor {
+        background-color: #015249;
+        height: 60px;
+        align-items: center;
     }
 </style>

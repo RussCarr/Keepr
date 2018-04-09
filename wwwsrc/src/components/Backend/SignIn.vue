@@ -18,7 +18,6 @@
               <button class="btn btn-link px-4" @click="$emit('close')">Click here to just Browse.</button>
             </div>
           </form>
-
         </div>
       </div>
     </transition>
@@ -39,7 +38,6 @@
     methods: {
       submit() {
         this.$store.dispatch('loginUser', this.user)
-        
         this.$emit('close')
       },
       // showRegisterForm() {

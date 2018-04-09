@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <topBar @showMyKeeps="showMyKeeps = true" :user="user"></topBar>
-    <myKeepsMenu v-if="showMyKeeps" @close="showMyKeeps = false" @closeMyKeeps="close($event)"></myKeepsMenu>
+    <myKeepsMenu v-if="showMyKeeps" @close="showMyKeeps = false" @closeMyKeeps="closeKeeps($event)"></myKeepsMenu>
     <!-- <navbar></navbar> -->
     <h5>User Home Page</h5>
     <div class="row ml-4">
@@ -40,7 +40,7 @@
       }
     },
     methods: {
-      close() {
+      closeKeeps() {
         console.log('part 3')
         this.showMyKeeps = false
       }
