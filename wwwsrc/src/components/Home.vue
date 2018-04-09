@@ -79,6 +79,9 @@
         // showModal: false
       }
     },
+    mount() {
+      this.$store.dispatch('getAllSharedKeeps')
+    },
     methods: {
       // close() {
       //   console.log('part 2')

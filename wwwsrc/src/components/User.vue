@@ -1,71 +1,48 @@
 <template>
   <div class="user">
-    <topBar @showMyKeeps="showMyKeeps = true" :user="user" ></topBar>
+    <topBar @showMyKeeps="showMyKeeps = true" :user="user"></topBar>
     <myKeepsMenu v-if="showMyKeeps" @close="showMyKeeps = false" @closeMyKeeps="close($event)"></myKeepsMenu>
     <!-- <navbar></navbar> -->
     <h5>User Home Page</h5>
-    <div class="row ml-5">
-        <div class="col-sm-3 keep">
-          <img class="" src="http:\\placehold.it\250x200">
-          <hr>
-          <div class="row">
-            <div class="col text-center">
-              <span>keep#</span>
-              <span>Share#</span>
-              <span>View#</span>
-            </div>
-          </div>
-          <hr>
-          <p>Keep Discription</p>
-          <hr>
-          <div class="row">
-            <div class="col text-center">
-              <Button>keep</Button>
-              <Button>Share</Button>
-              <Button>View</Button>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <p>Hello</p>
-        </div>
-        <div class="col-sm-3">
-          <p>Hello</p>
-        </div>
-        <div class="col-sm-3">
-          <p>Hello</p>
-        </div>
-      </div>
-    
-</div>
+    <div class="row ml-4">
+        <!-- <myBeats :project='project' v-for='project in projects' :key='project._id'></myBeats> -->
+      <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
+    </div>
+
+  </div>
 </template>
 
 <script>
   import TopBar from './TopBar'
   import MyKeepsMenu from './MyKeepsMenu'
-  // import Navbar from './Navbar'
+  import Keeps from './Keeps'
   export default {
     name: 'User',
     components: {
       topBar: TopBar,
-      myKeepsMenu: MyKeepsMenu
-      // navbar: Navbar,
+      keeps: Keeps,
+      myKeepsMenu: MyKeepsMenu,
     },
     data() {
       return {
         showMyKeeps: true,
-        user: this.$store.state.user
+        user: this.$store.state.user,
+        
       }
     },
     computed: {
       // getUser() {
       //   return this.$store.state.user
-      // }
+      // },
+      keeps() {
+        return this.$store.state.allSharedKeeps
+        console.log(this.$store.state.allSharedKeeps)
+      }
     },
     methods: {
       close() {
-         console.log('part 3')
-        this.showMyKeeps= false
+        console.log('part 3')
+        this.showMyKeeps = false
       }
     }
 
@@ -73,7 +50,7 @@
 </script>
 
 <style scoped>
-  .keep{
+  .keep {
     width: 80px;
     height: 400px;
     justify-content: center;

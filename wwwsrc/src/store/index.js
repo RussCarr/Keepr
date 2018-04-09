@@ -99,6 +99,7 @@ export default new vuex.Store({
           } else {
             // dispatch("getLatestProject", newUser._id);
             commit('setUserStatus', true)
+            dispatch('getAllSharedKeeps')
             router.push({
               name: "User"
             });
@@ -125,6 +126,7 @@ export default new vuex.Store({
           console.log("returning user2:", sessionUser);
           commit("setUser", sessionUser);
           commit('setUserStatus', true)
+          dispatch('getAllSharedKeeps')
           router.push({
             name: "User"
           });
