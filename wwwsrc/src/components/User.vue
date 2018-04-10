@@ -1,35 +1,35 @@
 <template>
   <div class="user">
-    <topBar @showMyKeeps="showMyKeeps = true" :user="user"></topBar>
-    <myKeepsMenu v-if="showMyKeeps" @close="showMyKeeps = false" @closeMyKeeps="closeKeeps($event)"></myKeepsMenu>
-    <!-- <navbar></navbar> -->
+    <topBar @showDashboard="showDashboard = true" :user="user"></topBar>
+    <dashboard v-if="showDashboard" @close="showDashboard = false" @closeDashboard="closeDashboard($event)"></dashboard>
     <h5>User Home Page</h5>
     <div class="row ml-4">
-        <!-- <myBeats :project='project' v-for='project in projects' :key='project._id'></myBeats> -->
       <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
     </div>
-
   </div>
 </template>
 
 <script>
   import TopBar from './TopBar'
-  import MyKeepsMenu from './MyKeepsMenu'
+  import Dashboard from './Dashboard'
   import Keeps from './Keeps'
   export default {
     name: 'User',
     components: {
       topBar: TopBar,
       keeps: Keeps,
-      myKeepsMenu: MyKeepsMenu,
+      dashboard: Dashboard,
     },
     data() {
       return {
-        showMyKeeps: true,
+        showDashboard: false,
         user: this.$store.state.user,
-        
+
       }
     },
+    mounted() {
+        this.$store.dispatch('getAllUserVaults')
+      },
     computed: {
       // getUser() {
       //   return this.$store.state.user
@@ -40,9 +40,9 @@
       }
     },
     methods: {
-      closeKeeps() {
+      closeDashboard() {
         console.log('part 3')
-        this.showMyKeeps = false
+        this.showDashboard = false
       }
     }
 

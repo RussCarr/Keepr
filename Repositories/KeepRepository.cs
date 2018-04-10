@@ -54,9 +54,9 @@ namespace keepr.Repositories
                     Img = @Img,
                     Link = @Link,
                     Tags = @Tags,
-                    Title = @Title
-                    CountShare = @CountShare
-                    CountKeep = @CountKeep
+                    Title = @Title,
+                    CountShare = @CountShare,
+                    CountKeep = @CountKeep,
                     CountView = @CountView
                 WHERE Id = {id};
                 SELECT * FROM keeps WHERE id = {id};", keep);

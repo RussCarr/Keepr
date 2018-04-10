@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-2">
                     
-                    <button  class="btn btn-alert" @click="$emit('showMyKeeps')">MyKeeps</button>
+                    <button  class="btn btn-alert" @click="$emit('showDashboard')">Dashboard</button>
                     <button  class="btn btn-alert " @click="logout">Logout</button>
                 </div>
                 <div class="col-sm-2">

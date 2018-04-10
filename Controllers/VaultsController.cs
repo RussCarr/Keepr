@@ -7,42 +7,42 @@ using Microsoft.AspNetCore.Mvc;
 namespace keepr.Controllers
 {
   [Route("api/[controller]")]
-  public class KeepsController : Controller
+  public class VaultsController : Controller
   {
-    private readonly keepRepository _repo;
-    public KeepsController(keepRepository repo)
+    private readonly vaultRepository _repo;
+    public VaultsController(vaultRepository repo)
     {
       _repo = repo;
     }
 
     [HttpGet]
-    public IEnumerable<keep> Get()
+    public IEnumerable<vault> Get()
     {
-      return _repo.Getkeeps();
+      return _repo.Getvaults();
     }
 
     [HttpGet("{id}")]
-    public keep Get(int id)
+    public vault Get(int id)
     {
       return _repo.GetById(id);
     }
 
     [HttpPost]
-    public keep Addkeep([FromBody]keep keep)
+    public vault Addvault([FromBody]vault vault)
     {
       if (ModelState.IsValid)
       {
-        return _repo.Add(keep);
+        return _repo.Add(vault);
       }
       return null;
     }
 
     [HttpPut("{id}")]
-    public keep Put(int id, [FromBody]keep keep)
+    public vault Put(int id, [FromBody]vault vault)
     {
       if (ModelState.IsValid)
       {
-        return _repo.GetOneByIdAndUpdate(id, keep);
+        return _repo.GetOneByIdAndUpdate(id, vault);
       }
       return null;
     }

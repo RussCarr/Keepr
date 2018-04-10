@@ -13,7 +13,7 @@
 
             <form>
               <p>Title</p>
-              <input v-model="newVault.title" placeholder="title">
+              <input v-model="newVault.name" placeholder="name">
               <p>Description</p>
               <input v-model="newVault.description" placeholder="description">
               <button @click.prevent="sendVault" type="submit">Submit</button>
@@ -41,16 +41,20 @@
     data() {
       return {
         newVault: {
-          title: "",
           description: "",
-
+          name: "",
+          userId: this.$store.state.user.id
         },
       }
     },
     methods: {
       sendVault() {
         console.log("This is a Vault", this.newVault)
-        this.$store.dispatch('sendVault', this.newVault)
+        this.$store.dispatch('createVault', this.newVault)
+        this.newVault = {
+          name: "",
+          description: ""
+        }
       },
     }
   }

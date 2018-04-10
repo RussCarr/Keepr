@@ -36,6 +36,7 @@ export default new vuex.Store({
       message: ""
     },
     allSharedKeeps: [],
+    allUserVaults: [],
     userStatus: false
   },
 
@@ -43,18 +44,21 @@ export default new vuex.Store({
     setUser(state, user) {
       state.user = user;
     },
+    setUserStatus(state, payload) {
+      state.userStatus = payload;
+    },
     setAuthError(state, error) {
       state.authError = {
         error: error.error,
         message: error.message
       };
     },
-    setKeep(state, allSharedKeeps) {
+    setKeeps(state, allSharedKeeps) {
       state.allSharedKeeps = allSharedKeeps;
     },
-    setUserStatus(state, payload) {
-      state.userStatus = payload;
-    }
+    setVaults(state, allUserVaults) {
+      state.allUserVaults = allUserVaults;
+    },
   },
 
   actions: {
@@ -168,7 +172,7 @@ export default new vuex.Store({
     },
     //Api
     //Vaults
-    getAllVaults({ commit, dispatch }) {
+    getAllUserVaults({ commit, dispatch }) {
       api
         .get("/Vaults")
         .then(res => {
@@ -183,15 +187,16 @@ export default new vuex.Store({
           console.log(err);
         });
     },
-    sendVault({ commit, dispatch }, payload) {
-      api.post("/Vaults", payload).then(res => {
-        dispatch("getAllVaults").catch(err => {
+    createVault({ commit, dispatch }, vault) {
+      console.log('sending Vault', vault)
+      api.post("/vaults", vault).then(res => {
+        dispatch("getAllUserVaults").catch(err => {
           console.log(err);
         });
       });
     },
     updateVault({ commit, dispatch }, payload) {
-      api.put(`/keeps/${payload.id}`, payload).then(res => {
+      api.put(`/Vaults/${payload.id}`, payload).then(res => {
         dispatch("getAllVaults").catch(err => {
           console.log(err);
         });
@@ -218,7 +223,7 @@ export default new vuex.Store({
         allSharedKeeps.sort((projA, projB) => {
           return projB.createdAt - projA.createdAt;
         });
-        commit("setKeep", allSharedKeeps);
+        commit("setKeeps", allSharedKeeps);
       })
       .catch(err => {
         console.log(err);
