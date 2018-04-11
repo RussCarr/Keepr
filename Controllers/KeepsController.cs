@@ -55,11 +55,11 @@ namespace keepr.Controllers
     }
 
     
-    //    [HttpGet("storedKeep/{id}")]
-    // public storedKeep GetBySearch(int id)
-    // {
-    //   return _repo.GetBySearch(id);
-    // }
+        [HttpGet("sharedKeep")]
+    public IEnumerable<storedKeep> GetShared()
+    {
+      return _repo.GetSharedKeeps();
+    }
 
        [HttpGet("storedKeep/{id}")]
     public IEnumerable<storedKeep> GetBySearch(int id)

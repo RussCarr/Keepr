@@ -248,7 +248,7 @@ export default new vuex.Store({
   //Keeps
   getAllSharedKeeps({ commit, dispatch }) {
     api
-      .get("/Keeps")
+      .get("/Keeps/sharedKeep")
       .then(res => {
         console.log("Keeps", res.data);
         var allSharedKeeps = res.data;
@@ -268,9 +268,11 @@ export default new vuex.Store({
       });
     });
   },
-  updateKeep({ commit, dispatch }, payload) {
-    api.put(`/Keeps/${payload.id}`, payload).then(res => {
-      dispatch("getAllShaedKeeps").catch(err => {
+  updateKeep({ commit, dispatch }, keep) {
+    console.log('Updating keep',keep)
+    api.put(`/Keeps/${keep.id}`, keep).then(res => {
+      console.log('returing keep',res)
+      dispatch("getAllSharedKeeps").catch(err => {
         console.log(err);
       });
     });
@@ -282,8 +284,22 @@ export default new vuex.Store({
         console.log(err);
       });
     });
-  
-  }
+  },
+  changeKeepShared({ commit, dispatch }, payload) {
+    var setting = {
+      payloadshared: payload[1]
+    };
+    // clonedProject.shareCount = 0;
+    console.log("setting", setting, payload);
+    // api
+    //   .put(`keeps/${payload[0].id}`, setting)
+    //   .then(res => {
+    //     dispatch("getUserProjects", payload[0].userId);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+  },
 
   }
 });

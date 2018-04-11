@@ -28,8 +28,9 @@ namespace keepr.Repositories
         userId,
         CountShare,
         CountKeep,
-        CountView
-      ) VALUES (@Img, @Link, @Tags, @Title,@Userid,@CountShare,@CountKeep,@CountView)", keep);
+        CountView,
+        Shared
+      ) VALUES (@Img, @Link, @Tags, @Title,@Userid,@CountShare,@CountKeep,@CountView,@Shared)", keep);
       keep.Id = id;
       return keep;
     }
@@ -57,7 +58,8 @@ namespace keepr.Repositories
                     Title = @Title,
                     CountShare = @CountShare,
                     CountKeep = @CountKeep,
-                    CountView = @CountView
+                    CountView = @CountView,
+                    Shared = @Shared
                 WHERE Id = {id};
                 SELECT * FROM keeps WHERE id = {id};", keep);
     }
@@ -101,6 +103,14 @@ namespace keepr.Repositories
           JOIN keeps ON keeps.id = vaultkeeps.keepId
           WHERE vaultid = {id}");
     }
+
+public IEnumerable<storedKeep> GetSharedKeeps()
+    {
+      return _db.Query<storedKeep>($@"
+        SELECT * FROM keeps
+          WHERE shared = 1");
+    }
+
 
   }
 }

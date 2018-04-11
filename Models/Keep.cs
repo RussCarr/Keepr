@@ -9,6 +9,7 @@ namespace keepr.Models
 
     public int Id { get; set; }
     public int CountShare { get; set; } = 0;
+    public int Shared { get; set; } = 0;
     public int CountKeep { get; set; } = 0;
     public int CountView { get; set; } = 0;
     [Required]
@@ -25,5 +26,5 @@ namespace keepr.Models
 
   }
 
- 
+
 }

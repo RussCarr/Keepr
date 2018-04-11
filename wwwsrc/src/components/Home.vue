@@ -8,6 +8,7 @@
     <div class="row ml-4">
       <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
     </div>
+    <button @click="getShared">Push</button>
     <bottom></bottom>
   </div>
 </template>
@@ -42,13 +43,14 @@
       }
     },
     mount() {
+      console.log("sending to get all sharedKeeps")
       this.$store.dispatch('getAllSharedKeeps')
     },
     methods: {
-      // close() {
-      //   console.log('part 2')
-      //   this.showSignIn = false
-      // },
+      getShared() {
+        console.log("sending to get all sharedKeeps")
+      this.$store.dispatch('getAllSharedKeeps')
+      },
       openSignIn() {
         this.showRegister = false
         this.showSignIn = true

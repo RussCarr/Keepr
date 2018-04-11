@@ -17,12 +17,13 @@ namespace keepr.Models
   public class storedKeep
   {
     public string Img { get; set; }
-   
+
     public string Link { get; set; }
 
     public string Tags { get; set; }
- 
+
     public string Title { get; set; }
+    public int Shared { get; set; }
   }
 
 }
