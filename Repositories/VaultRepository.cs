@@ -60,7 +60,18 @@ namespace keepr.Repositories
       return success > 0 ? "success" : "umm that didnt work";
     }
 
-
+    //STOREONE
+    public stored AddToVault(stored stored)
+    {
+      int id = _db.ExecuteScalar<int>($@"
+      INSERT INTO vaultkeeps (
+        keepId,
+        userId,
+        vaultId
+      ) VALUES (@Keepid, @Userid, @Vaultid)", stored);
+      stored.Id = id;
+      return stored;
+    }
 
   }
 }

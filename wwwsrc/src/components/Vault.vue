@@ -4,29 +4,22 @@
       <div class="modal-mask">
         <div class="modal-wrapper">
           <div class="modal-container">
+              <!-- <h1 class="location" >Where am I</h1> -->
 
             <div class="modal-header">
-
-              <h5>Keeps in this Vault</h5>
-
+              <p>Keeps in this Vault</p>
             </div>
-
             <div class="modal-body">
-
-
               <div class="row ml-4">
+                Hello
                 <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
               </div>
-
             </div>
-
             <div class="modal-footer">
-
               default footer
               <button @click="$emit('close')">
                 OK
               </button>
-
             </div>
           </div>
         </div>
@@ -50,8 +43,8 @@
     },
     computed: {
       keeps() {
-        return this.$store.state.allSharedKeeps
-        console.log(this.$store.state.allSharedKeeps)
+        return this.$store.state.userStoredVaultKeeps
+        console.log(this.$store.state.userStoredVaultKeeps)
       }
     },
     methods: {
@@ -90,9 +83,15 @@
     display: table-cell;
     vertical-align: middle;
   }
+.location{
+  position: fixed;
+ height: 120px;
+  background-color: white;
 
+}
   .modal-container {
-    width: 300px;
+    width: 80%;
+    height: 400px;
     margin: 0px auto;
     padding: 20px 30px;
     background-color: #fff;
@@ -100,17 +99,27 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
+    overflow-y: scroll;
   }
 
-  .modal-header h3 {
-    margin-top: 0;
+  .modal-header {
+    /* margin-top: 0; */
     color: #42b983;
+    position: sticky;
+    
+ /* height: 140px; */
+  background-color: white;
+  z-index: 9999
   }
 
   .modal-body {
     margin: 20px 0;
   }
-
+  .modal-footer {
+    /* margin: 20px 0; */
+    position: sticky;
+    top: 120px;
+  }
   .modal-default-button {
     float: right;
   }

@@ -60,8 +60,6 @@
 --   1,
 --   1
 -- );
-
-
 -- get all burgers where user id = 1
 -- SELECT
 --   u.name username,
@@ -75,6 +73,38 @@
 -- JOIN users u ON u.id = ob.userId
 -- JOIN burgers b ON b.id = ob.burgerId
 -- WHERE userId = "13683c3b-b608-469e-ba93-7a3fb079de65";
+
+
+
+
+-- get all burgers where user id = 1
+-- SELECT
+--   users.namename,
+--   users.email,
+--   orderburgers.burgerId,
+--   orderburgers.quantity,
+--   orderburgers.orderId,
+--   burgers.name,
+--   burgers.kcal
+-- FROM orderburgers 
+-- JOIN users ON users.id = orderburgers.userId
+-- JOIN burgers ON burgers.id = orderburgers.burgerId
+-- WHERE userId = "13683c3b-b608-469e-ba93-7a3fb079de65";
+
+
+
+-- get all burgers where user id = 1
+SELECT
+ keeps.img,
+    keeps.link,
+    keeps.tags,
+    keeps.title,
+    userid,
+    keepid,
+FROM vaultkeeps 
+JOIN users ON users.id = userid
+JOIN keeps ON keeps.id = keepid
+WHERE vaultid = ;
 
 -- SELECT * FROM orderburgers
 

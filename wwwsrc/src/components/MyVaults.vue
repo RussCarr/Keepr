@@ -7,8 +7,8 @@
     <div class="row">
       <hr>
       <div class="col text-center">
-        <Button @click="showVault = true">open</Button>
-        <Button>Delete</Button>
+        <Button @click="getVaultKeeps">open</Button>
+        <Button @click="removeVault">Delete</Button>
       </div>
     </div>
     <vault v-if="showVault" @close="showVault = false"></vault>
@@ -19,7 +19,7 @@
   import Vault from './Vault'
   export default {
     name: 'MyVaults',
-    conponents: {
+    components: {
       vault: Vault
     },
     data() {
@@ -33,7 +33,13 @@
     },
     props: ['vault'],
     methods: {
- 
+      removeVault() {
+        this.$store.dispatch('removeVault',this.vault)
+      },
+      getVaultKeeps() {
+        this.showVault = true
+        this.$store.dispatch('getUserStoredVaultKeeps',this.vault.id)
+      }
     }
   }
 

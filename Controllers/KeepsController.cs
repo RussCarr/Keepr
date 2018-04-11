@@ -54,5 +54,17 @@ namespace keepr.Controllers
       return _repo.FindByIdAndRemove(id);
     }
 
+    
+    //    [HttpGet("storedKeep/{id}")]
+    // public storedKeep GetBySearch(int id)
+    // {
+    //   return _repo.GetBySearch(id);
+    // }
+
+       [HttpGet("storedKeep/{id}")]
+    public IEnumerable<storedKeep> GetBySearch(int id)
+    {
+      return _repo.GetBySearch(id);
+    }
   }
 }

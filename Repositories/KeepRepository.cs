@@ -62,6 +62,9 @@ namespace keepr.Repositories
                 SELECT * FROM keeps WHERE id = {id};", keep);
     }
 
+  
+
+    
     public string FindByIdAndRemove(int id)
     {
       var success = _db.Execute(@"
@@ -70,7 +73,34 @@ namespace keepr.Repositories
       return success > 0 ? "success" : "umm that didnt work";
     }
 
+//  //READ: FINDONE FINDALL FINDMANY
+//       public IEnumerable<keep> GetBySearch()
+//     {
+//       return _db.Query<keep>("SELECT keepId FROM vaultkeeps");
+//     }
+ 
+    // public storedKeep GetBySearch(int id)
+    // {
+    //   return _db.QueryFirstOrDefault<storedKeep>(@"
+    //     SELECT keepid FROM vaultkeeps WHERE vaultid = @id
+    //   ", id);
+    // }
 
+  public IEnumerable<storedKeep> GetBySearch(int id)
+    {
+      return _db.Query<storedKeep>($@"
+        SELECT
+          keeps.link,
+          keeps.tags,
+          keeps.title,
+          keeps.userId,
+          keeps.id,
+          keeps.img
+          FROM vaultkeeps 
+          JOIN users ON users.id = vaultkeeps.userId
+          JOIN keeps ON keeps.id = vaultkeeps.keepId
+          WHERE vaultid = {id}");
+    }
 
   }
 }

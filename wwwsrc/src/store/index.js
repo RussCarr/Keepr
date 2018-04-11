@@ -37,6 +37,7 @@ export default new vuex.Store({
     },
     allSharedKeeps: [],
     allUserVaults: [],
+    userStoredVaultKeeps: {},
     userStatus: false
   },
 
@@ -58,6 +59,9 @@ export default new vuex.Store({
     },
     setVaults(state, allUserVaults) {
       state.allUserVaults = allUserVaults;
+    },
+    setUserVaults(state, userVaultKeep) {
+      state.userStoredVaultKeeps = userVaultKeep;
     },
   },
 
@@ -104,6 +108,7 @@ export default new vuex.Store({
             // dispatch("getLatestProject", newUser._id);
             commit('setUserStatus', true)
             dispatch('getAllSharedKeeps')
+            dispatch('getAllUserVaults')
             router.push({
               name: "User"
             });
@@ -177,11 +182,11 @@ export default new vuex.Store({
         .get("/Vaults")
         .then(res => {
           console.log("Vaults", res.data);
-          var allVaults = res.data;
-          allVaults.sort((projA, projB) => {
+          var userStoredVaultKeeps = res.data;
+          userStoredVaultKeeps.sort((projA, projB) => {
             return projB.createdAt - projA.createdAt;
           });
-          commit("setVaults", allVaults);
+          commit("setVaults", userStoredVaultKeeps);
         })
         .catch(err => {
           console.log(err);
@@ -197,21 +202,47 @@ export default new vuex.Store({
     },
     updateVault({ commit, dispatch }, payload) {
       api.put(`/Vaults/${payload.id}`, payload).then(res => {
-        dispatch("getAllVaults").catch(err => {
+        dispatch("getAllUserVaults").catch(err => {
           console.log(err);
         });
       });
     },
-    deleteVault({ commit, dispatch }, payload) {
-      console.log("id", payload.id);
-      api.delete(`/Vaults/${payload.id}`)
+    removeVault({ commit, dispatch }, vault) {
+      console.log("id", vault.id);
+      api.delete(`/vaults/${vault.id}`)
       .then(res => {
-        dispatch("getAllVaults").catch(err => {
+        dispatch("getAllUserVaults").catch(err => {
           console.log(err);
         });
       });
     },
-    
+    addToVault({ commit, dispatch }, stored) {
+      console.log("add to vault", stored);
+      api.post("/vaults/stored",stored)
+      .then(res => {
+        console.log("created vault keep", res.data);
+        dispatch("getUserStoredKeeps",res.data)
+        .catch(err => {
+          console.log(err);
+        });
+      });
+    },
+    getUserStoredVaultKeeps({ commit, dispatch },id) {
+      console.log('i want my vaultkeeps',id)
+      api
+        .get(`/keeps/storedKeep/${id}`)
+        .then(res => {
+          console.log("Vaults", res.data);
+          var userVaultKeeps = res.data;
+          userVaultKeeps.sort((projA, projB) => {
+            return projB.createdAt - projA.createdAt;
+          });
+          commit("setUserVaults", userVaultKeeps);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
    
   //Keeps
   getAllSharedKeeps({ commit, dispatch }) {

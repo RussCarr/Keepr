@@ -17,5 +17,6 @@ namespace keepr.Models
     [Required]
     public string UserId { get; set; }
 
-   }
+  }
+
 }

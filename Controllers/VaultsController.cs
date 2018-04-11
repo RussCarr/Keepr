@@ -53,6 +53,15 @@ namespace keepr.Controllers
       Console.WriteLine("here @ Delete");
       return _repo.FindByIdAndRemove(id);
     }
-
+  
+  [HttpPost("stored")]
+    public stored AddToVault([FromBody]stored stored)
+    {
+      if (ModelState.IsValid)
+      {
+        return _repo.AddToVault(stored);
+      }
+      return null;
+    }
   }
 }

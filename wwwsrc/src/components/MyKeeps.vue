@@ -4,9 +4,9 @@
       <hr>
       <div class="row">
         <div class="col text-center">
-          <span>{keep.keepCount}#</span>
-          <span>{keep.shareCount}#</span>
-          <span>{keep.viewCount}#</span>
+          <span>Keep {{keep.countKeep}}</span>
+          <span>Share {{keep.countShare}}</span>
+          <span>View {{keep.countView}}</span>
         </div>
         <div class="col-sm-4">
             <div class="row share-icons-wrapper">
@@ -54,6 +54,8 @@
           <Button>keep</Button>
           <Button>Share</Button>
           <Button>View</Button>
+          <!-- //To me removed later -->
+          <Button @click="removeKeep">delete</Button>
         </div>
       </div>
     </div>
@@ -82,9 +84,9 @@
     },
     props:['keep'],
     methods: {
-      // submit() {
-      //   this.$store.dispatch('loginUser', this.user)
-      // },
+      removeKeep() {
+        this.$store.dispatch('deleteKeep', this.keep)
+      },
       // showRegisterForm() {
       //   this.$emit('showRegisterForm')
       // },

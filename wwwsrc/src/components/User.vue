@@ -4,7 +4,7 @@
     <dashboard v-if="showDashboard" @close="showDashboard = false" @closeDashboard="closeDashboard($event)"></dashboard>
     <h5>User Home Page</h5>
     <div class="row ml-4">
-      <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
+      <keeps :user="user" :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@
       }
     },
     mounted() {
-        this.$store.dispatch('getAllUserVaults')
+        this.$store.dispatch('getAllUserVaults',this.user)
       },
     computed: {
       // getUser() {
