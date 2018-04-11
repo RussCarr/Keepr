@@ -36,6 +36,7 @@ export default new vuex.Store({
       message: ""
     },
     allSharedKeeps: [],
+    allUserKeeps: [],
     allUserVaults: [],
     userStoredVaultKeeps: {},
     userStatus: false
@@ -54,8 +55,11 @@ export default new vuex.Store({
         message: error.message
       };
     },
-    setKeeps(state, allSharedKeeps) {
+    setSharedKeeps(state, allSharedKeeps) {
       state.allSharedKeeps = allSharedKeeps;
+    },
+    setUserKeeps(state, allUserKeeps) {
+      state.allUserKeeps = allUserKeeps;
     },
     setVaults(state, userStoredVaults) {
       state.allUserVaults = userStoredVaults;
@@ -77,6 +81,7 @@ export default new vuex.Store({
           commit("setUser", newUser);
           commit("setAuthError", { error: false, message: "" });
           commit('setUserStatus', true)
+          // dispatch('getUserKeeps',newUser)
           router.push({
             name: "User"
           });
@@ -107,7 +112,7 @@ export default new vuex.Store({
           } else {
             // dispatch("getLatestProject", newUser._id);
             commit('setUserStatus', true)
-            dispatch('getAllSharedKeeps')
+            dispatch('getUserKeeps',newUser)
             dispatch('getUserVaults',newUser)
             router.push({
               name: "User"
@@ -135,7 +140,8 @@ export default new vuex.Store({
           console.log("returning user2:", sessionUser);
           commit("setUser", sessionUser);
           commit('setUserStatus', true)
-          dispatch('getAllSharedKeeps')
+          dispatch('getUserKeeps',sessionUser)
+          dispatch('getUserVaults',sessionUser)
           router.push({
             name: "User"
           });
@@ -152,6 +158,7 @@ export default new vuex.Store({
           commit("setUser", {});
           commit("setAuthError", { error: false, message: "" });
           commit('setUserStatus', false)
+          
           router.push({
             name: "Home"
           });
@@ -160,21 +167,21 @@ export default new vuex.Store({
           console.log(err);
         });
     },
-    getAllUsers({ commit, dispatch }, user) {
-      api
-        .get("/private/users", user)
-        .then(res => {
-          console.log("User data", res.data);
-          var allUsers = res.data;
-          allUsers.sort((projA, projB) => {
-            return projB.createdAt - projA.createdAt;
-          });
-          commit("setUsers", allUsers);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+    // getAllUsers({ commit, dispatch }, user) {
+    //   api
+    //     .get("/private/users", user)
+    //     .then(res => {
+    //       console.log("User data", res.data);
+    //       var allUsers = res.data;
+    //       allUsers.sort((projA, projB) => {
+    //         return projB.createdAt - projA.createdAt;
+    //       });
+    //       commit("setUsers", allUsers);
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // },
     //Api
     //Vaults
     getUserVaults({ commit, dispatch },newUser) {
@@ -253,9 +260,24 @@ export default new vuex.Store({
         console.log("Keeps", res.data);
         var allSharedKeeps = res.data;
         allSharedKeeps.sort((projA, projB) => {
-          return projB.createdAt - projA.createdAt;
+          return projB.id - projA.id;
         });
-        commit("setKeeps", allSharedKeeps);
+        commit("setSharedKeeps", allSharedKeeps);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getUserKeeps({ commit, dispatch },newUser) {
+    api
+      .get(`/Keeps/user/${newUser.id}`)
+      .then(res => {
+        console.log("Keeps", res.data);
+        var allUserKeeps = res.data;
+        // allUserKeeps.sort((projA, projB) => {
+        //   return projB.id - projA.id;
+        // });
+        commit("setUserKeeps", allUserKeeps);
       })
       .catch(err => {
         console.log(err);
@@ -263,7 +285,7 @@ export default new vuex.Store({
   },
   createKeep({ commit, dispatch }, keep) {
     api.post("/Keeps", keep).then(res => {
-      dispatch("getAllSharedKeeps").catch(err => {
+      dispatch("getUserKeeps").catch(err => {
         console.log(err);
       });
     });
@@ -272,7 +294,7 @@ export default new vuex.Store({
     console.log('Updating keep',keep)
     api.put(`/Keeps/${keep.id}`, keep).then(res => {
       console.log('returing keep',res)
-      dispatch("getAllSharedKeeps").catch(err => {
+      dispatch("getUserKeeps").catch(err => {
         console.log(err);
       });
     });
@@ -280,26 +302,26 @@ export default new vuex.Store({
   deleteKeep({ commit, dispatch }, payload) {
     console.log("id", payload.id);
     api.delete(`/Keeps/${payload.id}`).then(res => {
-      dispatch("getAllSharedKeeps").catch(err => {
+      dispatch("getUserKeeps").catch(err => {
         console.log(err);
       });
     });
   },
-  changeKeepShared({ commit, dispatch }, payload) {
-    var setting = {
-      payloadshared: payload[1]
-    };
-    // clonedProject.shareCount = 0;
-    console.log("setting", setting, payload);
-    // api
-    //   .put(`keeps/${payload[0].id}`, setting)
-    //   .then(res => {
-    //     dispatch("getUserProjects", payload[0].userId);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-  },
+  // changeKeepShared({ commit, dispatch }, payload) {
+  //   var setting = {
+  //     payloadshared: payload[1]
+  //   };
+  //   clonedProject.shareCount = 0;
+  //   console.log("setting", setting, payload);
+  //   api
+  //     .put(`keeps/${payload[0].id}`, setting)
+  //     .then(res => {
+  //       dispatch("getUserProjects", payload[0].userId);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // },
 
   }
 });

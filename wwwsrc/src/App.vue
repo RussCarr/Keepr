@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <router-view/>
-    
   </div>
 </template>
 
@@ -13,6 +12,7 @@
     
     },
     mounted() {
+      this.$store.dispatch('getAllSharedKeeps')
       this.$store.dispatch('authenticateUser')
     }
   }
@@ -23,7 +23,8 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* display: flex */
+    display: block;
+    /* height: 100%; */
   }
   
 </style>

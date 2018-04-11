@@ -1,5 +1,5 @@
 <template>
-  <div class="foot">
+  <div class="col-sm-12 foot">
     <p class="text-center">Copywrite Research Driven Marketing 2018</p>
   </div>
 </template>
@@ -18,7 +18,7 @@
 
 <style scoped>
   .foot {
-    height: 130px;
+    height: 100px;
     background: teal;
     margin-top: 20px;
    padding-top: 20;

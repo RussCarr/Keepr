@@ -27,6 +27,13 @@ namespace keepr.Controllers
       return _repo.GetById(id);
     }
 
+    [HttpGet("user/{id}")]
+    public IEnumerable<keep> GetByUser(int id)
+    {
+      return _repo.Getkeeps(id);
+    }
+
+
     [HttpPost]
     public keep Addkeep([FromBody]keep keep)
     {

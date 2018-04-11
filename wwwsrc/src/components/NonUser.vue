@@ -1,26 +1,29 @@
 <template>
   <div class="main">
-    <nonUser></nonUser>
-    <!-- <bottom></bottom> -->
-  </div>
+        <homeBar @showSignIn="showSignIn = true" @showRegister="showRegister = true"></homeBar>
+        <signIn v-if="showSignIn" @close="showSignIn = false" @closeSignIn="openRegister($event)"></signIn>
+        <register v-if="showRegister" @close="showRegister = false" @closeRegister="openSignIn($event)"></register>
+        <h5>Home Page</h5>
+                  <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
+        <!-- <bottom></bottom> -->
+    </div>
+
 </template>
 
 <script>
-  import Footer from './Footer'
-  import NonUser from './NonUser'
-  // import HomeBar from './HomeBar'
-  // import SignIn from './Backend/SignIn'
-  // import Register from './Backend/Register'
+  // import Footer from './Footer'
+  import HomeBar from './HomeBar'
+  import SignIn from './Backend/SignIn'
+  import Register from './Backend/Register'
   import Keeps from './Keeps'
   export default {
-    name: 'Home',
+    name: 'NonUser',
     components: {
-      bottom: Footer,
-      nonUser: NonUser
-      // homeBar: HomeBar,
-      // signIn: SignIn,
-      // register: Register,
-      // keeps: Keeps,
+      // bottom: Footer,
+      homeBar: HomeBar,
+      signIn: SignIn,
+      register: Register,
+      keeps: Keeps,
     },
     data() {
       return {
@@ -60,17 +63,8 @@
 </script>
 
 <style scoped>
-  /* .keep {
-    width: 80px;
-    height: 400px;
-    outline: 1px solid black;
-    /* outline-style: solid;
-    outline-color: red; 
- }
-*/
 
   .main {
-    height: 100%;
-    overflow-x: hidden;
+
   }
 </style>

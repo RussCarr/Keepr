@@ -30,9 +30,9 @@
 
       }
     },
-    mounted() {
-        this.$store.dispatch('getUserVaults',this.user)
-      },
+    // mounted() {
+    //     this.$store.dispatch('getUserVaults',this.user)
+    //   },
     computed: {
       // getUser() {
       //   return this.$store.state.user
