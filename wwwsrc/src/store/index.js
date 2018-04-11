@@ -117,6 +117,7 @@ export default new vuex.Store({
             commit("setUserStatus", true);
             dispatch("getUserKeeps", newUser.id);
             dispatch("getUserVaults", newUser.id);
+            dispatch("getAllSharedKeeps");
             router.push({
               name: "User"
             });
@@ -145,6 +146,7 @@ export default new vuex.Store({
           commit("setUserStatus", true);
           dispatch("getUserKeeps", sessionUser.id);
           dispatch("getUserVaults", sessionUser.id);
+          dispatch("getAllSharedKeeps");
           router.push({
             name: "User"
           });
@@ -206,6 +208,7 @@ export default new vuex.Store({
     createVault({ commit, dispatch }, vault) {
       console.log("sending Vault", vault);
       api.post("/vaults", vault).then(res => {
+        console.log("recieving a Vault", res);
         dispatch("getUserVaults",vault.userId).catch(err => {
           console.log(err);
         });
@@ -257,11 +260,11 @@ export default new vuex.Store({
       api
         .get("/Keeps/sharedKeep")
         .then(res => {
-          console.log("Keeps", res.data);
+          console.log("All Shared Keeps", res.data);
           var allSharedKeeps = res.data;
-          allSharedKeeps.sort((projA, projB) => {
-            return projB.id - projA.id;
-          });
+          // allSharedKeeps.sort((projA, projB) => {
+          //   return projB.id - projA.id;
+          // });
           commit("setSharedKeeps", allSharedKeeps);
         })
         .catch(err => {
@@ -272,7 +275,7 @@ export default new vuex.Store({
       api
         .get(`/Keeps/user/${userId}`)
         .then(res => {
-          console.log("Keeps", res.data);
+          console.log("User Keeps", res.data);
           var allUserKeeps = res.data;
           // allUserKeeps.sort((projA, projB) => {
           //   return projB.id - projA.id;
@@ -284,8 +287,10 @@ export default new vuex.Store({
         });
     },
     createKeep({ commit, dispatch }, keep) {
+      console.log('creating a keep',keep);
       api.post("/Keeps", keep)
       .then(res => {
+        console.log('keep has been created',res.data);
         dispatch("getUserKeeps",keep.userId)
         .catch(err => {
           console.log(err);

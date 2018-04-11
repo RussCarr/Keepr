@@ -16,7 +16,7 @@ namespace keepr.Models
     public string Img { get; set; }
     [Required]
     public string Link { get; set; }
-
+    [Required]
     public string Tags { get; set; }
     [Required]
     [MinLength(3)]

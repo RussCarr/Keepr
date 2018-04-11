@@ -15,15 +15,21 @@ namespace keepr.Models
   }
 
   public class storedKeep
-  {
-    public string Img { get; set; }
-
-    public string Link { get; set; }
-
-    public string Tags { get; set; }
-
-    public string Title { get; set; }
+  {   public int Id { get; set; }
+    public int CountShare { get; set; }
     public int Shared { get; set; }
+    public int CountKeep { get; set; }
+    public int CountView { get; set; }
+   
+    public string Img { get; set; }
+  
+    public string Link { get; set; }
+   
+    public string Tags { get; set; }
+  
+    public string Title { get; set; }
+  
+    public string UserId { get; set; }
   }
 
 }

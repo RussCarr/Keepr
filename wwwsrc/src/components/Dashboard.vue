@@ -20,7 +20,7 @@
     </div>
     <div class="row ml-4">
       <p>Keeps</p>
-      <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
+      <myKeeps :keep='keep' v-for='keep in keeps' :key='keep.id'></myKeeps>
     </div>
   </div>
 </template>
@@ -28,12 +28,12 @@
 <script>
   import KeepCreator from './KeepCreator'
   import VaultCreator from './VaultCreator'
-  import Keeps from './Keeps'
+  import MyKeeps from './MyKeeps'
   import MyVaults from './MyVaults'
   export default {
     name: 'Dashboard',
     components: {
-      keeps: Keeps,
+      myKeeps: MyKeeps,
       myVaults: MyVaults,
       keepCreator: KeepCreator,
       vaultCreator: VaultCreator,

@@ -21,27 +21,9 @@
               <div v-if="keepButtons = keepButtons ? true: false" class="col-12 text-center ">
                 <Button @click="keepToVault = keepToVault ? false : true">K</Button>
                 <Button @click="shareBox = shareBox ? false : true">S</Button>
-                <!-- <Button>asdf</Button> -->
-
-                <Button>V</Button>
+                <a :href="link" @click.prevent="addViewCount">V</a>
                 <!-- //To me removed later -->
-                <Button @click="removeKeep">delete</Button>
               </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="">
-                    <label class="switch">
-                      <input type="checkbox" v-model="shared">
-                      <span class="slider round"></span>
-                    </label>
-                    <p class="text-center">
-                      <span v-if="!shared">Private</span>
-                      <span v-if="shared">Shared</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <hr>
               <div class="col">
                 <div v-if="shareBox" class="shareButton">
                   <p>
@@ -58,12 +40,10 @@
                 </div>
               </div>
             </div>
-            <!-- <div v-if="mailBox" class="mail">
-                <mail v-on:mailBox="mailBox=false" :loggedInUser="loggedInUser" :sharedProject="sharedProject"></mail>
-              </div> -->
+            
             <div class="col">
               <div v-if="keepToVault" @mouseleave="keepToVault = false" class="text-center keepButton mt-3">
-                <select v-model="selectedVault" @click="addToVault">
+                <select v-model="selectedVault" @change="addToVault">
                   <option disabled value="">Please select one</option>
                   <option v-for="vault in vaults" :key="vault.id" :value="vault.id">{{vault.name}}</option>
                 </select>
@@ -86,7 +66,8 @@
         keepToVault: false,
         selectedVault: "",
         shared: this.keep.shared,
-        loggedIn: this.$store.state.userStatus
+        loggedIn: this.$store.state.userStatus,
+        link: this.keep.link
       }
     },
     watch: {
@@ -131,26 +112,34 @@
         this.$store.dispatch('deleteKeep', this.keep.id)
       },
       addToVault() {
-        console.log('Im a user0', this.selectedVault)
-
-        if (this.selectedVault === "") {
-          return
-        } else {
-          console.log('Im a user1', this.user.id)
+          console.log('Im a user id', this.user.id)
           // var userId = this.user.id
-          console.log('Im a keep2', this.keep.id)
+          console.log('Im a keep id', this.keep.id)
           // var keepId = (this.keep.id)
-          console.log('Im a vault3', this.selectedVault)
+          console.log('Im a vault id', this.selectedVault)
           // var vaultId = (this.selectedVault)
           var payload = {
             userId: this.user.id,
             keepId: this.keep.id,
             vaultId: this.selectedVault,
           }
-          console.log('Im a user4', payload)
+          console.log('Im a payload', payload)
           this.$store.dispatch('addToVault', payload)
-        }
+          var newKeep = this.keep
+          var newCount = newKeep.countKeep + 1
+          newKeep.countKeep = newCount
+                    
+          console.log('updateKeepCount',newKeep)
+          this.$store.dispatch('updateKeep',newKeep)
         this.selectedVault = ""
+      },
+      addViewCount() {
+        var newKeep = this.keep
+          var newCount = newKeep.countView + 1
+          newKeep.countView = newCount
+                    
+          console.log('updateViewCount',newKeep)
+          this.$store.dispatch('updateKeep',newKeep)
       }
       // close() {
       //   console.log('part 1')

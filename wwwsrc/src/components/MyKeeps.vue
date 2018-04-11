@@ -1,65 +1,46 @@
 <template>
-      <div class="col-sm-2 ml-3 mr-3 keep">
-      <!-- <img class="text-center" src="{{allSharedKeeps.img}}"> -->
-      <hr>
-      <div class="row">
-        <div class="col text-center">
-          <span>Keep {{keep.countKeep}}</span>
-          <span>Share {{keep.countShare}}</span>
-          <span>View {{keep.countView}}</span>
-        </div>
-        <div class="col-sm-4">
-            <div class="row share-icons-wrapper">
-              <div class="col share-icons">
-                <p class="createdBy">{sharedProject.playCount}</p>
-                <!-- <player class="centerFlex" :project="sharedProject" :largeButtons="false" :allowPlayCountUpdate="true"></player> -->
-              </div>
-              <div class="col share-icons">
-                <p class="createdBy">{sharedProject.forkCount}</p>
-                <a href="#" class="text-light" @click.prevent="forkProject">
-                  <i class="fas fa-code-branch"></i>
-                </a>
-              </div>
-              <div class="col share-icons">
-                <p class="createdBy">{sharedProject.shareCount}</p>
-                <a href="#" class="text-light" @click.prevent="shareBox= shareBox ? false : true">
-                  <i class="fas fa-share"></i>
-                </a>
-              </div>
-              <div class="col-sm-12">
-                <div v-if="shareBox" class="shareButton">
-                  <p>
-                      <a :href='facebook' class="share-icon" @click='updateShareCount' target="_blank" title="Share on Facebook">
-                          <i class="fab fa-facebook"></i>
-                        </a>
-                  </p>
-                  <p>
-                    <a class="share-icon" @click='updateShareCount' :href="twitter" target="_blank" >
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                  </p>
-              
+  <div class="row keeps">
+    <div class="col-sm-12 col-md-6 col-lg-3 ml-3 mr-3 ">
+      <div class="card" @mouseenter="keepButtons = true" @mouseleave="keepButtons = false" style="width: 18rem;">
+        <img class="card-img-top img" :src="imgLink" alt="Card image cap">
+        <div class="card-body">
+          <hr>
+          <div class="row">
+            <div class="col text-center">
+              <span>Keep {{keep.countKeep}}</span>
+              <span>Share {{keep.countShare}}</span>
+              <span>View {{keep.countView}}</span>
+            </div>
+          </div>
+          <hr>
+          <h5 class="card-title">{{keep.title}}</h5>
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+          <div>
+            <div class="row">
+              <div class="col-6">
+                <Button @click="removeKeep">delete</Button>
                 </div>
-                <!-- <div v-if="mailBox" class="mail"> -->
-                  <!-- <mail v-on:mailBox="mailBox=false" :loggedInUser="loggedInUser" :sharedProject="sharedProject"></mail> -->
+                <div class="col-6">
+                <div class="">
+                  <label class="switch">
+                    <input type="checkbox" v-model="shared">
+                    <span class="slider round"></span>
+                  </label>
+                  <p class="text-center">
+                    <span v-if="!shared">Private</span>
+                    <span v-if="shared">Shared</span>
+                  </p>
                 </div>
               </div>
-           </div>
-      </div>
-      <hr>
-      <a href=''>{{keep.title}}</a>
-      <hr>
-      <div class="row">
-        <div class="col text-center">
-          <Button>keep</Button>
-          <Button>Share</Button>
-          <Button>View</Button>
-          <!-- //To me removed later -->
-          <!-- <Button @click="removeKeep">delete</Button> -->
+            </div>
+            <hr>
+          </div>
         </div>
       </div>
     </div>
- </template>
+  </div>
+</template>
 
 <script>
   export default {
@@ -67,29 +48,76 @@
     data() {
       return {
         shareBox: false,
-        // user: {
-        //   Password: '',
-        //   Email: '',
-        //   showModal: true,
-        // },
+        keepButtons: false,
+        keepToVault: false,
+        selectedVault: "",
+        shared: this.keep.shared,
+        loggedIn: this.$store.state.userStatus
+      }
+    },
+    watch: {
+      shared: function (shared) {
+        console.log('switch keep', shared, this.keep)
+        // var payload = [this.keep]
+        if (shared == true) {
+          this.keep.shared = 1
+          //  payload.push(newStatus)
+          console.log(this.keep, "payload")
+          this.$store.dispatch('updateKeep', this.keep)
+        } else {
+          // var newStatus = 0
+          this.keep.shared = 0
+          // payload.push(newStatus)
+          console.log(this.keep, "payload")
+          this.$store.dispatch('updateKeep', this.keep)
+        }
       }
     },
     computed: {
-      //   link() {
+      imgLink() {
+        return this.keep.img
+      },
+      vaults() {
+        return this.$store.state.allUserVaults
+      },
+      // loggedIn() {
+      //   return this.$store.state.userStatus
+      // },
 
-      // var string = "https://twitter.com/intent/tweet?url=https://beatlocker.herokuapp.com/" + this.sharedProject._id
-      // return   string + "&text=BeatLocker&via=BeatLocker"
-
-      //   }
     },
-    props:['keep'],
+    mounted() {
+      // console.log('This mounted worked', this.$store.state.userStatus)
+      // console.log('what am I', this.loggedIn)
+    },
+
+    props: ['keep', 'user'],
     methods: {
       removeKeep() {
-        this.$store.dispatch('deleteKeep', this.keep)
+        console.log('This is my delete keep', this.keep.id)
+        this.$store.dispatch('deleteKeep', this.keep.id)
       },
-      // showRegisterForm() {
-      //   this.$emit('showRegisterForm')
-      // },
+      addToVault() {
+        console.log('Im a user0', this.selectedVault)
+
+        if (this.selectedVault === "") {
+          return
+        } else {
+          console.log('Im a user1', this.user.id)
+          // var userId = this.user.id
+          console.log('Im a keep2', this.keep.id)
+          // var keepId = (this.keep.id)
+          console.log('Im a vault3', this.selectedVault)
+          // var vaultId = (this.selectedVault)
+          var payload = {
+            userId: this.user.id,
+            keepId: this.keep.id,
+            vaultId: this.selectedVault,
+          }
+          console.log('Im a user4', payload)
+          this.$store.dispatch('addToVault', payload)
+        }
+        this.selectedVault = ""
+      }
       // close() {
       //   console.log('part 1')
       //   this.$emit('close')
@@ -100,13 +128,94 @@
 </script>
 
 <style>
+  .keeps {
+    height: 100%;
+  }
+
   .keep {
-    width: 80px;
+    width: 200px;
     height: 400px;
     justify-content: center;
-    outline: 1px solid black;
+    /* outline: 1px solid black; */
     margin: 0;
+    border: 2px solid black;
     /* outline-style: solid;
-    outline-color: red; */
+      outline-color: red; */
+  }
+
+  .menu:hover {
+    color: red;
+  }
+
+  .img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  /* switch */
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+  }
+
+  /* Hide default HTML checkbox */
+
+  .switch input {
+    display: none;
+  }
+
+  /* The slider */
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked+.slider {
+    background-color: #2196F3;
+  }
+
+  input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
   }
 </style>
