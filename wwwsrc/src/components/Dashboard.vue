@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <keepCreator :user="user" v-if="showKeepCreator" @close="showKeepCreator = false"></keepCreator>
+    <keepCreator v-if="showKeepCreator" @close="showKeepCreator = false"></keepCreator>
     <vaultCreator v-if="showVaultCreator" @close="showVaultCreator = false"></vaultCreator>
     <div class="row menu">
       <div class="col-sm-8">

@@ -14,14 +14,14 @@
           </div>
           <hr>
           <h5 class="card-title">{{keep.title}}</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-          <div v-if="loggedIn = false">
+          <div v-if="loggedIn = true">
             <div class="row">
               <div v-if="keepButtons = keepButtons ? true: false" class="col-12 text-center ">
                 <Button @click="keepToVault = keepToVault ? false : true">K</Button>
                 <Button @click="shareBox = shareBox ? false : true">S</Button>
-                <Button>asdf</Button>
+                <!-- <Button>asdf</Button> -->
 
                 <Button>V</Button>
                 <!-- //To me removed later -->
@@ -85,8 +85,8 @@
         keepButtons: false,
         keepToVault: false,
         selectedVault: "",
-        shared: false,
-        loggedIn: false
+        shared: this.keep.shared,
+        loggedIn: this.$store.state.userStatus
       }
     },
     watch: {
@@ -114,9 +114,12 @@
       vaults() {
         return this.$store.state.allUserVaults
       },
+      // loggedIn() {
+      //   return this.$store.state.userStatus
+      // },
+
     },
     mounted() {
-      this.loggedIn = this.$store.state.userStatus
       // console.log('This mounted worked', this.$store.state.userStatus)
       // console.log('what am I', this.loggedIn)
     },
@@ -124,8 +127,8 @@
     props: ['keep', 'user'],
     methods: {
       removeKeep() {
-        console.log('This is my delete keep', this.keep)
-        this.$store.dispatch('deleteKeep', this.keep)
+        console.log('This is my delete keep', this.keep.id)
+        this.$store.dispatch('deleteKeep', this.keep.id)
       },
       addToVault() {
         console.log('Im a user0', this.selectedVault)
@@ -159,9 +162,10 @@
 </script>
 
 <style>
-  .keeps{
+  .keeps {
     height: 100%;
   }
+
   .keep {
     width: 200px;
     height: 400px;

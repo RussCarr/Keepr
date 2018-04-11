@@ -55,7 +55,7 @@
           <Button>Share</Button>
           <Button>View</Button>
           <!-- //To me removed later -->
-          <Button @click="removeKeep">delete</Button>
+          <!-- <Button @click="removeKeep">delete</Button> -->
         </div>
       </div>
     </div>
