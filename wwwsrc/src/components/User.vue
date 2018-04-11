@@ -6,16 +6,19 @@
     <div class="row ml-4">
       <keeps :user="user" :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
     </div>
+    <bottom></bottom>
   </div>
 </template>
 
 <script>
+  import Footer from './Footer'
   import TopBar from './TopBar'
   import Dashboard from './Dashboard'
   import Keeps from './Keeps'
   export default {
     name: 'User',
     components: {
+      bottom: Footer,
       topBar: TopBar,
       keeps: Keeps,
       dashboard: Dashboard,
@@ -28,7 +31,7 @@
       }
     },
     mounted() {
-        this.$store.dispatch('getAllUserVaults',this.user)
+        this.$store.dispatch('getUserVaults',this.user)
       },
     computed: {
       // getUser() {
@@ -58,5 +61,8 @@
     /* margin-left: 15px; */
     /* outline-style: solid;
     outline-color: red; */
+  }
+  .user{
+    overflow-x: hidden;
   }
 </style>

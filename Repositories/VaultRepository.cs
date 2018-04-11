@@ -32,14 +32,13 @@ namespace keepr.Repositories
     //READ: FINDONE FINDALL FINDMANY
     public vault GetById(int id)
     {
-      return _db.QueryFirstOrDefault<vault>(@"
-        SELECT * FROM vaults WHERE id = @id
-      ", id);
+      return _db.QueryFirstOrDefault<vault>($@"
+        SELECT * FROM vaults WHERE userid = {id}");
     }
 
-    public IEnumerable<vault> Getvaults()
+    public IEnumerable<vault> Getvaults(int id)
     {
-      return _db.Query<vault>("SELECT * FROM vaults");
+      return _db.Query<vault>($@"SELECT * FROM vaults WHERE userid = {id}");
     }
 
     public vault GetOneByIdAndUpdate(int id, vault vault)

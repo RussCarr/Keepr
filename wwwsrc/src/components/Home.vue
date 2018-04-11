@@ -8,10 +8,12 @@
     <div class="row ml-4">
       <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
     </div>
+    <bottom></bottom>
   </div>
 </template>
 
 <script>
+    import Footer from './Footer'
   import HomeBar from './HomeBar'
   import SignIn from './Backend/SignIn'
   import Register from './Backend/Register'
@@ -19,6 +21,7 @@
   export default {
     name: 'Home',
     components: {
+      bottom: Footer,
       homeBar: HomeBar,
       signIn: SignIn,
       register: Register,
@@ -67,5 +70,8 @@
     outline: 1px solid black;
     /* outline-style: solid;
     outline-color: red; */
+  }
+  .main {
+    overflow-x: hidden;
   }
 </style>

@@ -15,10 +15,10 @@ namespace keepr.Controllers
       _repo = repo;
     }
 
-    [HttpGet]
-    public IEnumerable<vault> Get()
+    [HttpGet("user/{id}")]
+    public IEnumerable<vault> GetByUser(int id)
     {
-      return _repo.Getvaults();
+      return _repo.Getvaults(id);
     }
 
     [HttpGet("{id}")]

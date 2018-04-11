@@ -2,10 +2,10 @@
     <div class="topbar bgcolor">
         <div class="container-fluid ">
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     <h1 class="h3 text-light font-weight-bold">Keepr</h1>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     
                     <button  class="btn btn-alert" @click="$emit('showDashboard')">Dashboard</button>
                     <button  class="btn btn-alert " @click="logout">Logout</button>
@@ -74,7 +74,7 @@
     }
 
     .bgcolor {
-        background-color: #015249;
+        background-color: teal;
         height: 60px;
         align-items: center;
     }
