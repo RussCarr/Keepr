@@ -16,16 +16,16 @@ namespace keepr.Controllers
     }
 
     [HttpGet("user/{id}")]
-    public IEnumerable<vault> GetByUser(int id)
+    public IEnumerable<vault> GetByUser(string id)
     {
       return _repo.Getvaults(id);
     }
 
-    [HttpGet("{id}")]
-    public vault Get(int id)
-    {
-      return _repo.GetById(id);
-    }
+    // [HttpGet("user/{id}")]
+    // public vault Get(string id)
+    // {
+    //   return _repo.GetById(id);
+    // }
 
     [HttpPost]
     public vault Addvault([FromBody]vault vault)

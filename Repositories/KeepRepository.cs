@@ -36,16 +36,16 @@ namespace keepr.Repositories
     }
 
     //READ: FINDONE FINDALL FINDMANY
-    public keep GetById(int id)
-    {
-      return _db.QueryFirstOrDefault<keep>($@"
-        SELECT * FROM keeps WHERE userid = {id}
-      ");
-    }
+    // public keep GetById(string id)
+    // {
+    //   return _db.QueryFirstOrDefault<keep>($@"
+    //     SELECT * FROM keeps WHERE userid = '@id'
+    //   ");
+    // }
 
-  public IEnumerable<keep> Getkeeps(int id)
+  public IEnumerable<keep> Getkeeps(string id)
     {
-      return _db.Query<keep>($@"SELECT * FROM keeps WHERE userid = {id}");
+      return _db.Query<keep>($@"SELECT * FROM keeps WHERE userid = '{id}'");
     }
 
 

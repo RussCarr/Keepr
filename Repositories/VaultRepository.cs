@@ -29,16 +29,17 @@ namespace keepr.Repositories
       return vault;
     }
 
-    //READ: FINDONE FINDALL FINDMANY
-    public vault GetById(int id)
-    {
-      return _db.QueryFirstOrDefault<vault>($@"
-        SELECT * FROM vaults WHERE userid = {id}");
-    }
+    // READ: FINDONE FINDALL FINDMANY
+    // public vault GetById(string id)
+    // {
+    //   return _db.QueryFirstOrDefault<vault>($@"
+    //     SELECT * FROM vaults WHERE userid = '@id'
+    //     ");
+    // }
 
-    public IEnumerable<vault> Getvaults(int id)
+    public IEnumerable<vault> Getvaults(string id)
     {
-      return _db.Query<vault>($@"SELECT * FROM vaults WHERE userid = {id}");
+      return _db.Query<vault>($@"SELECT * FROM vaults WHERE userid = '{id}'");
     }
 
     public vault GetOneByIdAndUpdate(int id, vault vault)

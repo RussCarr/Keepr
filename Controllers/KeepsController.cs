@@ -21,14 +21,14 @@ namespace keepr.Controllers
       return _repo.Getkeeps();
     }
 
-    [HttpGet("{id}")]
-    public keep Get(int id)
-    {
-      return _repo.GetById(id);
-    }
+    // [HttpGet("user/{id}")]
+    // public keep Get(string id)
+    // {
+    //   return _repo.GetById(id);
+    // }
 
     [HttpGet("user/{id}")]
-    public IEnumerable<keep> GetByUser(int id)
+    public IEnumerable<keep> GetByUser(string id)
     {
       return _repo.Getkeeps(id);
     }
