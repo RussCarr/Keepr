@@ -235,7 +235,8 @@ export default new vuex.Store({
       console.log("add to vault", stored);
       api.post("/vaults/stored", stored).then(res => {
         console.log("created vault keep", res.data);
-        dispatch("getUserStoredKeeps", res.data).catch(err => {
+        var vaultKeep = res.data
+        dispatch("getUserStoredKeeps", vaultKeep.vaultId).catch(err => {
           console.log(err);
         });
       });
@@ -247,9 +248,9 @@ export default new vuex.Store({
         .then(res => {
           console.log("Vaults", res.data);
           var userVaultKeeps = res.data;
-          userVaultKeeps.sort((projA, projB) => {
-            return projB.createdAt - projA.createdAt;
-          });
+          // userVaultKeeps.sort((projA, projB) => {
+          //   return projB.createdAt - projA.createdAt;
+          // });
           commit("setUserVaultKeeps", userVaultKeeps);
         })
         .catch(err => {

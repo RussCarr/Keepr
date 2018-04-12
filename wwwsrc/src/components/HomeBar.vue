@@ -51,6 +51,8 @@
 <style scoped>
    .homebar{
        display: flex;
+       border: 2px solid black;
+       margin-bottom: 50px;
    }
     img {
         width: 25px;
@@ -71,7 +73,7 @@
     }
 
     .bgcolor {
-        background-color: #015249;
+        background-color: teal;
         height: 60px;
         align-items: center;
     }

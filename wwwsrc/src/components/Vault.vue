@@ -1,30 +1,30 @@
 <template>
-  <div class="singleVault">
-    <transition name="modal">
-      <div class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-container">
+  <div class="singleVault row">
+    <div class="col-4">
+      <transition name="modal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-container">
               <!-- <h1 class="location" >Where am I</h1> -->
-
-            <div class="modal-header">
-              <p>Keeps in this Vault</p>
-            </div>
-            <div class="modal-body">
-              <div class="row ml-4">
-                Hello
-                <vaultKeeps :keep='keep' v-for='keep in keeps' :key='keep.id'></VaultKeeps>
+              
+              <div class="modal-header">
+                <h3>These are your keeps in this Vault!</h3>
+              </div>
+              <div class="modal-body">
+                <div class="row ml-4">
+                  <vaultKeeps :keep='keep' v-for='keep in keeps' :key='keep.id'></VaultKeeps>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-light" @click="$emit('close')">
+                    OK
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="modal-footer">
-              default footer
-              <button @click="$emit('close')">
-                OK
-              </button>
-            </div>
           </div>
-        </div>
+        </transition>
       </div>
-    </transition>
   </div>
 </template>
 
@@ -90,8 +90,8 @@
 
 }
   .modal-container {
-    width: 80%;
-    height: 400px;
+    width: 70%;
+    height: 75%;
     margin: 0px auto;
     padding: 20px 30px;
     background-color: #fff;
@@ -100,11 +100,12 @@
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
     overflow-y: scroll;
+    border-radius: 25px;
   }
 
   .modal-header {
     /* margin-top: 0; */
-    color: #42b983;
+    color: black;
     position: sticky;
     
  /* height: 140px; */

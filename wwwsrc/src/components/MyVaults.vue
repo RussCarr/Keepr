@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-3 ml-3 mr-3 mt-5 vault">
+  <div class="col-2 ml-3 mr-3 mt-5 vault">
     <h3 class="text-center text-light">{{vault.name}}</h3>
     <hr>
     <h5 class="text-center text-light">{{vault.description}}</h5>

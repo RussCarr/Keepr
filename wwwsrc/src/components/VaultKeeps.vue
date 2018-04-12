@@ -3,6 +3,7 @@
     <div class="col-sm-12 col-md-6 col-lg-3 ml-3 mr-3 ">
       <div class="card" @mouseenter="keepButtons = true" @mouseleave="keepButtons = false" style="width: 18rem;">
         <img class="card-img-top img" :src="imgLink" alt="Card image cap">
+        <a class="text-center" :href="link" @click.prevent="addViewCount">{{keep.title}}</a>
         <div class="card-body">
           <hr>
           <div class="row">
@@ -13,16 +14,14 @@
             </div>
           </div>
           <hr>
-          <h5 class="card-title">{{keep.title}}</h5>
           <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
           <div v-if="loggedIn">
             <div class="row">
               <div v-if="keepButtons = keepButtons ? true: false" class="col-12 text-center ">
                 <!-- <Button @click="keepToVault = keepToVault ? false : true">M</Button> -->
-                <Button @click="shareBox = shareBox ? false : true">S</Button>
+                <Button class="btn btn-darks" @click="shareBox = shareBox ? false : true"><i class="fas fa-share-alt"></i></Button>
                 <!-- <Button @click="removeKeep">D</Button> -->
-                <a :href="link" @click.prevent="addViewCount">V</a>
                 <!-- //To me removed later -->
               </div>
               <div class="col-sm-12">
@@ -181,12 +180,16 @@
   .menu:hover {
     color: red;
   }
-
+.card{
+  padding: 20px;
+  margin-top: 20px;
+}
   .img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 75%;
+    padding-bottom: 15px; 
   }
 
   /* switch */

@@ -4,13 +4,10 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="modal-header">
             <p>Create a Vault</p>
           </div>
-
           <div class="modal-body">
-
             <form>
               <p>Title</p>
               <input v-model="newVault.name" placeholder="name">
@@ -19,14 +16,10 @@
               <button @click.prevent="sendVault" type="submit">Submit</button>
             </form>
           </div>
-
           <div class="modal-footer">
-
-
             <button @click="$emit('close')">
               OK
             </button>
-
           </div>
         </div>
       </div>
@@ -80,7 +73,7 @@
   }
 
   .modal-container {
-    width: 300px;
+    width: 500px;
     margin: 0px auto;
     padding: 20px 30px;
     background-color: #fff;

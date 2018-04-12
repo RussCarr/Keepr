@@ -2,7 +2,7 @@
   <div class="user">
     <topBar @showDashboard="showDashboard = true" :user="user"></topBar>
     <dashboard v-if="showDashboard" @close="showDashboard = false" @closeDashboard="closeDashboard($event)"></dashboard>
-    <h5>User Home Page</h5>
+    <!-- <h5>User Home Page</h5> -->
     <div class="row ml-4">
       <keeps :user="user" :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
     </div>

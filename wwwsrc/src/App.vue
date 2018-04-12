@@ -25,6 +25,7 @@
     -moz-osx-font-smoothing: grayscale;
     display: block;
     /* height: 100%; */
+    background-color: silver;
   }
   
 </style>

@@ -4,7 +4,10 @@
     <signIn v-if="showSignIn" @close="showSignIn = false" @closeSignIn="openRegister($event)"></signIn>
     <register v-if="showRegister" @close="showRegister = false" @closeRegister="openSignIn($event)"></register>
     <!-- <h5>Home Page</h5> -->
-    <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
+    <div class="row">
+      <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
+
+    </div>
     <!-- <bottom></bottom> -->
   </div>
 
@@ -64,6 +67,7 @@
 
 <style scoped>
   .nonUser {
-    background-color: slategrey;
+    background-color: silver;
+    margin-bottom: 50px;
   }
 </style>

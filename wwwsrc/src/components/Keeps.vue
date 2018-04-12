@@ -1,6 +1,6 @@
 <template>
-  <div class="row keeps">
-    <div class="col-sm-12 col-md-6 col-lg-3 ml-3 mr-3 ">
+  <div class="keeps">
+    <div class="col-sm-6 col-md-2 col-lg-3 ml-3 mr-3 ">
       <div class="card" @mouseenter="keepButtons = true" @mouseleave="keepButtons = false" style="width: 18rem;">
         <img class="card-img-top img" :src="imgLink" alt="Card image cap">
         <div class="card-body">
@@ -117,14 +117,14 @@
         this.$store.dispatch('deleteKeep', this.keep.id)
       },
       addToVault() {
-          console.log('Im a user id', this.user.id)
+          console.log('Im a user id', this.keep.userId)
           // var userId = this.user.id
           console.log('Im a keep id', this.keep.id)
           // var keepId = (this.keep.id)
           console.log('Im a vault id', this.selectedVault)
           // var vaultId = (this.selectedVault)
           var payload = {
-            userId: this.user.id,
+            userId: this.keep.userId,
             keepId: this.keep.id,
             vaultId: this.selectedVault,
           }
@@ -165,7 +165,7 @@
 
 <style>
   .keeps {
-    height: 100%;
+    /* height: 100%; */
     /* background-color: slategrey; */
   }
 .card{

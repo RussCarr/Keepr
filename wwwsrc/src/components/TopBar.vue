@@ -55,6 +55,8 @@
    .topbar{
        display: flex;
        border: 2px solid black;
+       margin-bottom: 50px;
+       
    }
     img {
         width: 25px;
