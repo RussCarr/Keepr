@@ -68,10 +68,8 @@
       return {
         showKeepCreator: false,
         showVaultCreator: false,
-        // user: {}
       }
     },
-    // props:['user'],
     computed: {
       vaults() {
         return this.$store.state.allUserVaults
@@ -86,7 +84,7 @@
 
 <style>
   .menu {
-    /* outline: 1px solid black; */
+
     margin: 20px;
     height: 60px;
     align-items: center;
@@ -96,8 +94,6 @@
 
   .dashboard {
     background-color: rgb(51, 36, 16);
-    /* opacity: .3; */
-    /* padding: 10px; */
     margin-bottom: 50px;
     padding-top: 30px;
     border-radius: 25px;

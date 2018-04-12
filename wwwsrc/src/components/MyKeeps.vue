@@ -4,7 +4,7 @@
       <div class="card" @mouseenter="keepButtons = true" @mouseleave="keepButtons = false" style="width: 18rem;">
         <img class="card-img-top img" :src="imgLink" alt="Card image cap">
         <div class="card-body">
-          <a :href="link" class="btn btn-link">{{keep.title}}</a>
+          <a :href="link" class="btn btn-link" target="_blank">{{keep.title}}</a>
           <hr>
           <div class="row">
             <div class="col text-center">
@@ -14,8 +14,6 @@
             </div>
           </div>
           <hr>
-          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
           <div>
             <div class="row">
               <div class="col-3 mr-3">
@@ -58,18 +56,14 @@
     },
     watch: {
       shared: function (shared) {
-        console.log('switch keep', shared, this.keep)
-        // var payload = [this.keep]
+        // console.log('switch keep', shared, this.keep)
         if (shared == true) {
           this.keep.shared = 1
-          //  payload.push(newStatus)
-          console.log(this.keep, "payload")
+          // console.log(this.keep, "payload")
           this.$store.dispatch('updateKeep', this.keep)
         } else {
-          // var newStatus = 0
           this.keep.shared = 0
-          // payload.push(newStatus)
-          console.log(this.keep, "payload")
+          // console.log(this.keep, "payload")
           this.$store.dispatch('updateKeep', this.keep)
         }
       }
@@ -81,48 +75,31 @@
       vaults() {
         return this.$store.state.allUserVaults
       },
-      // loggedIn() {
-      //   return this.$store.state.userStatus
-      // },
-
     },
-    mounted() {
-      // console.log('This mounted worked', this.$store.state.userStatus)
-      // console.log('what am I', this.loggedIn)
-    },
-
     props: ['keep', 'user'],
     methods: {
       removeKeep() {
-        console.log('This is my delete keep', this.keep)
+        // console.log('This is my delete keep', this.keep)
         this.$store.dispatch('deleteKeep', this.keep)
       },
       addToVault() {
-        console.log('Im a user0', this.selectedVault)
-
+        // console.log('Im a user0', this.selectedVault)
         if (this.selectedVault === "") {
           return
         } else {
-          console.log('Im a user1', this.user.id)
-          // var userId = this.user.id
-          console.log('Im a keep2', this.keep.id)
-          // var keepId = (this.keep.id)
-          console.log('Im a vault3', this.selectedVault)
-          // var vaultId = (this.selectedVault)
+          // console.log('Im a user1', this.user.id)
+          // console.log('Im a keep2', this.keep.id)
+          // console.log('Im a vault3', this.selectedVault)
           var payload = {
             userId: this.user.id,
             keepId: this.keep.id,
             vaultId: this.selectedVault,
           }
-          console.log('Im a user4', payload)
+          // console.log('Im a user4', payload)
           this.$store.dispatch('addToVault', payload)
         }
         this.selectedVault = ""
       }
-      // close() {
-      //   console.log('part 1')
-      //   this.$emit('close')
-      // },
     }
   }
 
@@ -134,20 +111,11 @@
     margin-bottom: 50px;
   }
 
-  .keep {
-    width: 200px;
-    height: 400px;
-    justify-content: center;
-    /* outline: 1px solid black; */
-    margin: 0;
-    border: 2px solid black;
-    /* outline-style: solid;
-      outline-color: red; */
-  }
   .card{
   background-color: papayawhip;
   border: 2px solid black;
   border-radius: 25px;
+  margin-bottom: 20px;
 }
   .menu:hover {
     color: red;

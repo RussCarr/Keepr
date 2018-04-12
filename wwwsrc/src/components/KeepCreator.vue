@@ -1,5 +1,4 @@
 <template>
-  <div>
     <!-- template for the modal component -->
     <transition name="modal">
       <div class="modal-mask">
@@ -11,16 +10,15 @@
               </p>
             </div>
             <div class="modal-body">
-            
-              <form>
-                <p>Title</p>
-                <input v-model="newKeep.title" placeholder="title">
-                <p>Img</p>
-                <input v-model="newKeep.img" placeholder="Img">
-                <p>Link</p>
-                <input v-model="newKeep.link" placeholder="link">
-                <p>Tags</p>
-                <input v-model="newKeep.tags" placeholder="tags">
+                         <form>
+                <p>Title...required</p>
+                <input v-model="newKeep.title" placeholder="title" required>
+                <p>Img...required</p>
+                <input v-model="newKeep.img" placeholder="Img" required>
+                <p>Link...required</p>
+                <input v-model="newKeep.link" placeholder="link" required>
+                <p>Tags...required</p>
+                <input v-model="newKeep.tags" placeholder="tags" required>
                 <button @click.prevent="sendKeep" type="submit">Submit</button>
               </form>
             </div>
@@ -54,6 +52,7 @@
     methods: {
       sendKeep() {
         console.log("This is a Keep", this.newKeep)
+      
         this.$store.dispatch('createKeep', this.newKeep)
         this.newKeep = {
           img: "",

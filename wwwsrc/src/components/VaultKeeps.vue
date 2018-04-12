@@ -3,7 +3,7 @@
     <div class="col-sm-12 col-md-6 col-lg-3 ml-3 mr-3 ">
       <div class="card" @mouseenter="keepButtons = true" @mouseleave="keepButtons = false" style="width: 18rem;">
         <img class="card-img-top img" :src="imgLink" alt="Card image cap">
-        <a class="text-center" :href="link" @click.prevent="addViewCount">{{keep.title}}</a>
+        <a class="text-center" :href="link" @click="addViewCount" target="_blank">{{keep.title}}</a>
         <div class="card-body">
           <hr>
           <div class="row">
@@ -14,15 +14,10 @@
             </div>
           </div>
           <hr>
-          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
           <div v-if="loggedIn">
             <div class="row">
               <div v-if="keepButtons = keepButtons ? true: false" class="col-12 text-center ">
-                <!-- <Button @click="keepToVault = keepToVault ? false : true">M</Button> -->
                 <Button class="btn btn-darks" @click="shareBox = shareBox ? false : true"><i class="fas fa-share-alt"></i></Button>
-                <!-- <Button @click="removeKeep">D</Button> -->
-                <!-- //To me removed later -->
               </div>
               <div class="col-sm-12">
                   <div v-if="shareBox" class="shareButton">
@@ -72,18 +67,14 @@
     },
     watch: {
       shared: function (shared) {
-        console.log('switch keep', shared, this.keep)
-        // var payload = [this.keep]
+        // console.log('switch keep', shared, this.keep)
         if (shared == true) {
           this.keep.shared = 1
-          //  payload.push(newStatus)
-          console.log(this.keep, "payload")
+          // console.log(this.keep, "payload")
           this.$store.dispatch('updateKeep', this.keep)
         } else {
-          // var newStatus = 0
           this.keep.shared = 0
-          // payload.push(newStatus)
-          console.log(this.keep, "payload")
+           // console.log(this.keep, "payload")
           this.$store.dispatch('updateKeep', this.keep)
         }
       }
@@ -107,11 +98,6 @@
         return   string + "&text=Keepr&via=Keepr"
       }
     },
-    mounted() {
-      // console.log('This mounted worked', this.$store.state.userStatus)
-      // console.log('what am I', this.loggedIn)
-    },
-
     props: ['keep', 'user'],
     methods: {
       removeKeep() {
@@ -120,22 +106,19 @@
             keepId: this.keep.id,
             vaultId: this.selectedVault,
           }
-        console.log('This is my delete Vaultkeep', payload)
+        // console.log('This is my delete Vaultkeep', payload)
         this.$store.dispatch('deleteVaultKeep', payload)
       },
       moveToOtherVault() {
-          console.log('Im a user id', this.user.id)
-          // var userId = this.user.id
-          console.log('Im a keep id', this.keep.id)
-          // var keepId = (this.keep.id)
-          console.log('Im a vault id', this.selectedVault)
-          // var vaultId = (this.selectedVault)
+          // console.log('Im a user id', this.user.id)
+          // console.log('Im a keep id', this.keep.id)
+          // console.log('Im a vault id', this.selectedVault)
           var payload = {
             userId: this.user.id,
             keepId: this.keep.id,
             vaultId: this.selectedVault,
           }
-          console.log('Im a payload', payload)
+          // console.log('Im a payload', payload)
           this.$store.dispatch('moveToOtherVault', payload)
         this.selectedVault = ""
       },
@@ -143,16 +126,14 @@
         var newKeep = this.keep
           var newCount = newKeep.countView + 1
           newKeep.countView = newCount
-                    
-          console.log('updateViewCount',newKeep)
+          // console.log('updateViewCount',newKeep)
           this.$store.dispatch('updateKeep',newKeep)
       },
       addShareCount() {
         var newKeep = this.keep
           var newCount = newKeep.countShare + 1
           newKeep.countShare = newCount
-                    
-          console.log('updateShareCount',newKeep)
+          // console.log('updateShareCount',newKeep)
           this.$store.dispatch('updateKeep',newKeep)
       }
      
@@ -170,11 +151,8 @@
     width: 200px;
     height: 400px;
     justify-content: center;
-    /* outline: 1px solid black; */
     margin: 0;
     border: 2px solid black;
-    /* outline-style: solid;
-    outline-color: red; */
   }
 
   .menu:hover {

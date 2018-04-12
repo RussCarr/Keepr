@@ -1,12 +1,10 @@
 <template>
+  <transition name="modal">
   <div class="singleVault row">
     <div class="col-4">
-      <transition name="modal">
         <div class="modal-mask">
           <div class="modal-wrapper">
             <div class="modal-container">
-              <!-- <h1 class="location" >Where am I</h1> -->
-              
               <div class="modal-header">
                 <h3>These are your keeps in this Vault!</h3>
               </div>
@@ -23,9 +21,9 @@
               </div>
             </div>
           </div>
-        </transition>
+        </div>
       </div>
-  </div>
+    </transition>
 </template>
 
 
@@ -44,17 +42,9 @@
     computed: {
       keeps() {
         return this.$store.state.userStoredVaultKeeps
-        console.log(this.$store.state.userStoredVaultKeeps)
+        // console.log(this.$store.state.userStoredVaultKeeps)
       }
     },
-    methods: {
-      // close() {
-      //   console.log('part 2')
-      //   this.showSignIn = false
-      // },
-
-    }
-
   }
 </script>
 
@@ -63,8 +53,6 @@
     width: 80px;
     height: 400px;
     outline: 1px solid black;
-    /* outline-style: solid;
-    outline-color: red; */
   }
 
   .modal-mask {

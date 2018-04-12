@@ -25,11 +25,7 @@
     data() {
       return {
         showVault: false,
-
       }
-    },
-    computed: {
-
     },
     props: ['vault'],
     methods: {
@@ -50,12 +46,9 @@
     width: 150px;
     height: 200px;
     justify-content: center;
-    /* outline: 1px solid black; */
     margin: 20px;
     border: 2px solid black;
     border-radius: 25px;
-    /* outline-style: solid;
-  outline-color: red; */
   background-color: tan
   }
 </style>

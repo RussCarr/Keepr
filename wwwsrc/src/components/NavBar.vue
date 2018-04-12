@@ -27,24 +27,11 @@
         },
         data() {
             return {
-                // showWelcome: true,
                 userStatus: this.$store.state.userStatus,
                 user: this.$store.state.user.username
             }
         },
-        // props: ['user'],
-        computed: {
-            // user() {
-            //     return this.$store.state.user
-
-            // },
-        },
         methods: {
-            // signIn() {
-            //     console.log('stage 1')
-            //     this.$emit('signIn', true)
-
-            // },
             logout() {
                 this.$store.dispatch('logoutUser')
             },

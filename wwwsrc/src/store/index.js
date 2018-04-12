@@ -72,12 +72,12 @@ export default new vuex.Store({
   actions: {
     // Auth
     registerUser({ commit, dispatch }, userData) {
-      console.log("User:", userData);
+      // console.log("User:", userData);
       auth
         .post("Account/Register", userData)
         .then(res => {
           var newUser = res.data;
-          console.log("newUser:", newUser);
+          // console.log("newUser:", newUser);
           commit("setUser", newUser);
           commit("setAuthError", { error: false, message: "" });
           commit("setUserStatus", true);
@@ -87,7 +87,7 @@ export default new vuex.Store({
           });
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           commit("setAuthError", {
             error: true,
             message:
@@ -101,10 +101,10 @@ export default new vuex.Store({
         .post("Account/Login", user)
         .then(res => {
           var newUser = res.data;
-          console.log("logged-in user:", newUser);
+          // console.log("logged-in user:", newUser);
           commit("setUser", newUser);
           if (newUser == "") {
-            console.log("Im at the gate", newUser);
+            // console.log("Im at the gate", newUser);
             commit("setAuthError", {
               error: true,
               message: "Log-in failed: Invalid username or password"
@@ -124,7 +124,7 @@ export default new vuex.Store({
           }
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           commit("setAuthError", {
             error: true,
             message: "Log-in failed: Invalid username or password"
@@ -133,14 +133,14 @@ export default new vuex.Store({
     },
 
     authenticateUser({ commit, dispatch }) {
-      console.log("returning user:1");
+      // console.log("returning user:1");
       auth
         .get("Account/authenticate")
         // console.log("returning user:2");
         .then(res => {
-          console.log("returning user:", res.data);
+          // console.log("returning user:", res.data);
           var sessionUser = res.data;
-          console.log("returning user2:", sessionUser);
+          // console.log("returning user2:", sessionUser);
           commit("setUser", sessionUser);
           commit("setUserStatus", true);
           dispatch("getUserKeeps", sessionUser.id);
@@ -151,14 +151,14 @@ export default new vuex.Store({
           });
         })
         .catch(err => {
-          console.error(err);
+          // console.error(err);
         });
     },
     logoutUser({ commit, dispatch }) {
       auth
         .delete("Account/Logout")
         .then(() => {
-          console.log("User logged out");
+          // console.log("User logged out");
           commit("setUser", {});
           commit("setAuthError", { error: false, message: "" });
           commit("setUserStatus", false);
@@ -171,7 +171,7 @@ export default new vuex.Store({
           });
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     },
     // getAllUsers({ commit, dispatch }, user) {
@@ -192,11 +192,11 @@ export default new vuex.Store({
     //Api
     //Vaults
     getUserVaults({ commit, dispatch }, userId) {
-      console.log("logged-in user:@ getUserVaults", userId);
+      // console.log("logged-in user:@ getUserVaults", userId);
       api
         .get(`/vaults/user/${userId}`)
         .then(res => {
-          console.log("Vaults", res.data);
+          // console.log("Vaults", res.data);
           var userStoredVaults = res.data;
           // userStoredVaults.sort((projA, projB) => {
           //   return projB.id - projA.id;
@@ -204,15 +204,15 @@ export default new vuex.Store({
           commit("setVaults", userStoredVaults);
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     },
     createVault({ commit, dispatch }, vault) {
-      console.log("sending Vault", vault);
+      // console.log("sending Vault", vault);
       api.post("/vaults", vault).then(res => {
-        console.log("recieving a Vault", res);
+        // console.log("recieving a Vault", res);
         dispatch("getUserVaults", vault.userId).catch(err => {
-          console.log(err);
+          // console.log(err);
         });
       });
     },
@@ -224,29 +224,29 @@ export default new vuex.Store({
     //   });
     // },
     removeVault({ commit, dispatch }, vault) {
-      console.log("id", vault.id);
+      // console.log("id", vault.id);
       api.delete(`/vaults/${vault.id}`).then(res => {
         dispatch("getUserVaults", vault.userId).catch(err => {
-          console.log(err);
+          // console.log(err);
         });
       });
     },
     addToVault({ commit, dispatch }, stored) {
-      console.log("add to vault", stored);
+      // console.log("add to vault", stored);
       api.post("/vaults/stored", stored).then(res => {
-        console.log("created vault keep", res.data);
+        // console.log("created vault keep", res.data);
         var vaultKeep = res.data
         dispatch("getUserStoredKeeps", vaultKeep.vaultId).catch(err => {
-          console.log(err);
+          // console.log(err);
         });
       });
     },
     getUserStoredVaultKeeps({ commit, dispatch }, id) {
-      console.log("i want my vaultkeeps", id);
+      // console.log("i want my vaultkeeps", id);
       api
         .get(`/keeps/storedKeep/${id}`)
         .then(res => {
-          console.log("Vaults", res.data);
+          // console.log("Vaults", res.data);
           var userVaultKeeps = res.data;
           // userVaultKeeps.sort((projA, projB) => {
           //   return projB.createdAt - projA.createdAt;
@@ -254,7 +254,7 @@ export default new vuex.Store({
           commit("setUserVaultKeeps", userVaultKeeps);
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     },
     // deleteVaultKeep({commit, dispatch }, payload) {
@@ -279,7 +279,7 @@ export default new vuex.Store({
       api
         .get("/Keeps/sharedKeep")
         .then(res => {
-          console.log("All Shared Keeps", res.data);
+          // console.log("All Shared Keeps", res.data);
           var allSharedKeeps = res.data;
           // allSharedKeeps.sort((projA, projB) => {
           //   return projB.id - projA.id;
@@ -287,14 +287,14 @@ export default new vuex.Store({
           commit("setSharedKeeps", allSharedKeeps);
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     },
     getUserKeeps({ commit, dispatch }, userId) {
       api
         .get(`/Keeps/user/${userId}`)
         .then(res => {
-          console.log("User Keeps", res.data);
+          // console.log("User Keeps", res.data);
           var allUserKeeps = res.data;
           // allUserKeeps.sort((projA, projB) => {
           //   return projB.id - projA.id;
@@ -302,34 +302,34 @@ export default new vuex.Store({
           commit("setUserKeeps", allUserKeeps);
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     },
     createKeep({ commit, dispatch }, keep) {
-      console.log("creating a keep", keep);
+      // console.log("creating a keep", keep);
       api.post("/Keeps", keep).then(res => {
-        console.log("keep has been created", res.data);
+        // console.log("keep has been created", res.data);
         dispatch("getUserKeeps", keep.userId).catch(err => {
-          console.log(err);
+          // console.log(err);
         });
       });
     },
     updateKeep({ commit, dispatch }, keep) {
-      console.log("Updating keep", keep);
+      // console.log("Updating keep", keep);
       api.put(`/Keeps/${keep.id}`, keep).then(res => {
-        console.log("returing keep", res.data);
-        console.log("returing keepid", keep.userId);
+        // console.log("returing keep", res.data);
+        // console.log("returing keepid", keep.userId);
         dispatch("getUserKeeps", keep.userId);
         dispatch("getAllSharedKeeps").catch(err => {
-          console.log(err);
+          // console.log(err);
         });
       });
     },
     deleteKeep({ commit, dispatch }, payload) {
-      console.log("id", payload);
+      // console.log("id", payload);
       api.delete(`/Keeps/${payload.id}`).then(res => {
         dispatch("getUserKeeps", payload.userId).catch(err => {
-          console.log(err);
+          // console.log(err);
         });
       });
     }

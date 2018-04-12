@@ -3,7 +3,7 @@
         <div class="container-fluid ">
             <div class="row">
                 <div class="col-sm-8">
-                    <h1 class="h3 text-light font-weight-bold">Keepr</h1>
+                    <h1 class="h3 text-light font-weight-bold"><i class="fab fa-kickstarter-k"></i>eepr</h1>
                 </div>
                 <div class="col-sm-4">
                     <button class="btn btn-success " @click="$emit('showSignIn')">Sign in</button>
@@ -23,24 +23,13 @@
         },
         data() {
             return {
-                // showWelcome: true,
                 userStatus: this.$store.state.userStatus,
                 user: this.$store.state.user.username
             }
         },
-        // props: ['user'],
         computed: {
-            // user() {
-            //     return this.$store.state.user
-
-            // },
         },
         methods: {
-            // signIn() {
-            //     console.log('stage 1')
-            //     this.$emit('signIn', true)
-
-            // },
             logout() {
                 this.$store.dispatch('logoutUser')
             },

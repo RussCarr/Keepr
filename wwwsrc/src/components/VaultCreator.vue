@@ -9,10 +9,10 @@
           </div>
           <div class="modal-body">
             <form>
-              <p>Title</p>
-              <input v-model="newVault.name" placeholder="name">
-              <p>Description</p>
-              <input v-model="newVault.description" placeholder="description">
+              <p>Title...required</p>
+              <input v-model="newVault.name" placeholder="name" required>
+              <p>Description...required</p>
+              <input v-model="newVault.description" placeholder="description" required>
               <button @click.prevent="sendVault" type="submit">Submit</button>
             </form>
           </div>
@@ -42,7 +42,7 @@
     },
     methods: {
       sendVault() {
-        console.log("This is a Vault", this.newVault)
+        // console.log("This is a Vault", this.newVault)
         this.$store.dispatch('createVault', this.newVault)
         this.newVault = {
           name: "",
