@@ -1,12 +1,12 @@
 <template>
   <div class="main">
-        <homeBar @showSignIn="showSignIn = true" @showRegister="showRegister = true"></homeBar>
-        <signIn v-if="showSignIn" @close="showSignIn = false" @closeSignIn="openRegister($event)"></signIn>
-        <register v-if="showRegister" @close="showRegister = false" @closeRegister="openSignIn($event)"></register>
-        <h5>Home Page</h5>
-                  <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
-        <!-- <bottom></bottom> -->
-    </div>
+    <homeBar @showSignIn="showSignIn = true" @showRegister="showRegister = true"></homeBar>
+    <signIn v-if="showSignIn" @close="showSignIn = false" @closeSignIn="openRegister($event)"></signIn>
+    <register v-if="showRegister" @close="showRegister = false" @closeRegister="openSignIn($event)"></register>
+    <h5>Home Page</h5>
+    <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
+    <!-- <bottom></bottom> -->
+  </div>
 
 </template>
 
@@ -63,8 +63,5 @@
 </script>
 
 <style scoped>
-
-  .main {
-
-  }
+  .main {}
 </style>

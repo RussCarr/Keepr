@@ -16,7 +16,7 @@
           <h5 class="card-title">{{keep.title}}</h5>
           <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-          <div v-if="loggedIn = true">
+          <div v-if="loggedIn">
             <div class="row">
               <div v-if="keepButtons = keepButtons ? true: false" class="col-12 text-center ">
                 <Button @click="keepToVault = keepToVault ? false : true">K</Button>
@@ -24,18 +24,18 @@
                 <a :href="link" @click.prevent="addViewCount">V</a>
                 <!-- //To me removed later -->
               </div>
-              <div class="col">
-                <div v-if="shareBox" class="shareButton">
-                  <p>
-                    <!-- <a :href='facebook' class="share-icon" @click='updateShareCount' target="_blank" title="Share on Facebook"> -->
-                    <i class="fab fa-facebook"></i>
-                    <!-- </a> -->
-                  </p>
-                  <p>
-                    <!-- <a class="share-icon" @click='updateShareCount' :href="twitter" target="_blank"> -->
-                    <i class="fab fa-twitter"></i>
-                    <!-- </a> -->
-                  </p>
+              <div class="col-sm-12">
+                  <div v-if="shareBox" class="shareButton">
+                    <p>
+                        <a :href='facebook' class="share-icon" @click='addShareCount' target="_blank" title="Share on Facebook">
+                            <i class="fab fa-facebook"></i>
+                          </a>
+                    </p>
+                    <p>
+                      <a class="share-icon" @click='addShareCount' :href="twitter" target="_blank" >
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                    </p>
 
                 </div>
               </div>
@@ -66,7 +66,7 @@
         keepToVault: false,
         selectedVault: "",
         shared: this.keep.shared,
-        loggedIn: this.$store.state.userStatus,
+        
         link: this.keep.link
       }
     },
@@ -95,10 +95,17 @@
       vaults() {
         return this.$store.state.allUserVaults
       },
-      // loggedIn() {
-      //   return this.$store.state.userStatus
-      // },
-
+      loggedIn() {
+        return this.$store.state.userStatus
+      },
+      facebook() {
+        var string = "https://www.facebook.com/sharer/sharer.php?u=https://localhost:5000/" + this.keep.id
+        return   string + "&t=Keepr"
+      },
+      twitter() {
+        var string = "https://twitter.com/intent/tweet?url=https://localhost:5000/" + this.keep.id
+        return   string + "&text=Keepr&via=Keepr"
+      }
     },
     mounted() {
       // console.log('This mounted worked', this.$store.state.userStatus)
@@ -139,6 +146,14 @@
           newKeep.countView = newCount
                     
           console.log('updateViewCount',newKeep)
+          this.$store.dispatch('updateKeep',newKeep)
+      },
+      addShareCount() {
+        var newKeep = this.keep
+          var newCount = newKeep.countShare + 1
+          newKeep.countShare = newCount
+                    
+          console.log('updateShareCount',newKeep)
           this.$store.dispatch('updateKeep',newKeep)
       }
       // close() {
