@@ -64,5 +64,6 @@
   }
   .user{
     overflow-x: hidden;
+    background-color: tan;
   }
 </style>

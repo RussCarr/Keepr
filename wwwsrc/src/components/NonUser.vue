@@ -1,9 +1,9 @@
 <template>
-  <div class="main">
+  <div class="nonUser">
     <homeBar @showSignIn="showSignIn = true" @showRegister="showRegister = true"></homeBar>
     <signIn v-if="showSignIn" @close="showSignIn = false" @closeSignIn="openRegister($event)"></signIn>
     <register v-if="showRegister" @close="showRegister = false" @closeRegister="openSignIn($event)"></register>
-    <h5>Home Page</h5>
+    <!-- <h5>Home Page</h5> -->
     <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
     <!-- <bottom></bottom> -->
   </div>
@@ -63,5 +63,7 @@
 </script>
 
 <style scoped>
-  .main {}
+  .nonUser {
+    background-color: slategrey;
+  }
 </style>

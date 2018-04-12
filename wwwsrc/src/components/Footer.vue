@@ -18,10 +18,11 @@
 
 <style scoped>
   .foot {
-    height: 100px;
+    height: 75px;
     background: teal;
     margin-top: 20px;
    padding-top: 20;
+   border: 2px solid black;
   }
 
   .modal-mask {

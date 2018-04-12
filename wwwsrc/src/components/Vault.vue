@@ -12,7 +12,7 @@
             <div class="modal-body">
               <div class="row ml-4">
                 Hello
-                <keeps :keep='keep' v-for='keep in keeps' :key='keep.id'></keeps>
+                <vaultKeeps :keep='keep' v-for='keep in keeps' :key='keep.id'></VaultKeeps>
               </div>
             </div>
             <div class="modal-footer">
@@ -30,11 +30,11 @@
 
 
 <script>
-  import Keeps from './Keeps'
+  import VaultKeeps from './VaultKeeps'
   export default {
-    name: 'Home',
+    name: 'Vault',
     components: {
-      keeps: Keeps,
+      vaultKeeps: VaultKeeps,
     },
     data() {
       return {

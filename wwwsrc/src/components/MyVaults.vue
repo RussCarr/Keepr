@@ -1,14 +1,14 @@
 <template>
   <div class="col-sm-3 ml-3 mr-3 mt-5 vault">
-    <h3 class="text-center">{{vault.name}}</h3>
+    <h3 class="text-center text-light">{{vault.name}}</h3>
     <hr>
-    <h5 class="text-center">{{vault.description}}</h5>
+    <h5 class="text-center text-light">{{vault.description}}</h5>
     <hr>
     <div class="row">
       <hr>
       <div class="col text-center">
-        <Button @click="getVaultKeeps">open</Button>
-        <Button @click="removeVault">Delete</Button>
+        <Button class="btn btn-sm btn-info" @click="getVaultKeeps">open</Button>
+        <Button class="btn btn-sm btn-danger" @click="removeVault">Delete</Button>
       </div>
     </div>
     <vault v-if="showVault" @close="showVault = false"></vault>
@@ -47,12 +47,15 @@
 
 <style>
   .vault {
-    width: 80px;
+    width: 150px;
     height: 200px;
     justify-content: center;
-    outline: 1px solid black;
+    /* outline: 1px solid black; */
     margin: 20px;
+    border: 2px solid black;
+    border-radius: 25px;
     /* outline-style: solid;
   outline-color: red; */
+  background-color: tan
   }
 </style>

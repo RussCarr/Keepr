@@ -1,9 +1,10 @@
 <template>
-  <div class="row keeps">
+  <div class="row mykeeps">
     <div class="col-sm-12 col-md-6 col-lg-3 ml-3 mr-3 ">
       <div class="card" @mouseenter="keepButtons = true" @mouseleave="keepButtons = false" style="width: 18rem;">
         <img class="card-img-top img" :src="imgLink" alt="Card image cap">
         <div class="card-body">
+          <a :href="link" class="btn btn-link">{{keep.title}}</a>
           <hr>
           <div class="row">
             <div class="col text-center">
@@ -13,13 +14,12 @@
             </div>
           </div>
           <hr>
-          <h5 class="card-title">{{keep.title}}</h5>
           <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
           <div>
             <div class="row">
-              <div class="col-6">
-                <Button @click="removeKeep">delete</Button>
+              <div class="col-3 mr-3">
+                <Button class="btn-danger"@click="removeKeep"><i class="fas fa-trash"></i></Button>
                 </div>
                 <div class="col-6">
                 <div class="">
@@ -27,7 +27,7 @@
                     <input type="checkbox" v-model="shared">
                     <span class="slider round"></span>
                   </label>
-                  <p class="text-center">
+                  <p class="">
                     <span v-if="!shared">Private</span>
                     <span v-if="shared">Shared</span>
                   </p>
@@ -52,7 +52,8 @@
         keepToVault: false,
         selectedVault: "",
         shared: this.keep.shared,
-        loggedIn: this.$store.state.userStatus
+        loggedIn: this.$store.state.userStatus,
+        link: this.keep.link
       }
     },
     watch: {
@@ -93,8 +94,8 @@
     props: ['keep', 'user'],
     methods: {
       removeKeep() {
-        console.log('This is my delete keep', this.keep.id)
-        this.$store.dispatch('deleteKeep', this.keep.id)
+        console.log('This is my delete keep', this.keep)
+        this.$store.dispatch('deleteKeep', this.keep)
       },
       addToVault() {
         console.log('Im a user0', this.selectedVault)
@@ -128,8 +129,9 @@
 </script>
 
 <style>
-  .keeps {
+  .mykeeps {
     height: 100%;
+    /* padding: 20px; */
   }
 
   .keep {
@@ -142,16 +144,21 @@
     /* outline-style: solid;
       outline-color: red; */
   }
-
+  .card{
+  background-color: papayawhip;
+  border: 2px solid black;
+  border-radius: 25px;
+}
   .menu:hover {
     color: red;
   }
 
   .img {
+    padding-top: 15px; 
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 75%;
   }
 
   /* switch */

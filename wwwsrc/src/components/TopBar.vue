@@ -3,12 +3,12 @@
         <div class="container-fluid ">
             <div class="row">
                 <div class="col-sm-7">
-                    <h1 class="h3 text-light font-weight-bold">Keepr</h1>
+                    <h1 class="h3 text-light font-weight-bold"><span><i class="fab fa-kickstarter-k"></i></span>eepr</h1>
                 </div>
                 <div class="col-sm-3">
                     
-                    <button  class="btn btn-alert" @click="$emit('showDashboard')">Dashboard</button>
-                    <button  class="btn btn-alert " @click="logout">Logout</button>
+                    <button  class="btn btn-info" @click="$emit('showDashboard')"><i class="fas fa-tachometer-alt"></i></button>
+                    <button  class="btn btn-danger " @click="logout">Logout</button>
                 </div>
                 <div class="col-sm-2">
                     <p class="h5 text-light">User: <span class="h3 text-dark">{{user.username}}</span></p>
@@ -54,6 +54,7 @@
 <style scoped>
    .topbar{
        display: flex;
+       border: 2px solid black;
    }
     img {
         width: 25px;
@@ -76,6 +77,7 @@
     .bgcolor {
         background-color: teal;
         height: 60px;
-        align-items: center;
+        /* align-items: center; */
+        /* justify-content: center; */
     }
 </style>

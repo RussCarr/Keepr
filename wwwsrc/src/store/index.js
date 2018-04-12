@@ -256,6 +256,22 @@ export default new vuex.Store({
           console.log(err);
         });
     },
+    // deleteVaultKeep({commit, dispatch }, payload) {
+    //   console.log("i want my vaultkeeps", id);
+    //   api
+    //     .delete(`/keeps/storedKeep/${payload.id}`)
+    //     .then(res => {
+    //       console.log("Vaults", res.data);
+    //       var userVaultKeeps = res.data;
+    //       userVaultKeeps.sort((projA, projB) => {
+    //         return projB.createdAt - projA.createdAt;
+    //       });
+    //       commit("setUserVaultKeeps", userVaultKeeps);
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    //   },
 
     //Keeps
     getAllSharedKeeps({ commit, dispatch }) {
@@ -308,10 +324,10 @@ export default new vuex.Store({
         });
       });
     },
-    deleteKeep({ commit, dispatch }, payload, id) {
-      console.log("id", payload, payload.id);
-      api.delete(`/Keeps/${payload}`).then(res => {
-        dispatch("getUserKeeps", id).catch(err => {
+    deleteKeep({ commit, dispatch }, payload) {
+      console.log("id", payload);
+      api.delete(`/Keeps/${payload.id}`).then(res => {
+        dispatch("getUserKeeps", payload.userId).catch(err => {
           console.log(err);
         });
       });

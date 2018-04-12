@@ -7,19 +7,22 @@
           <hr>
           <div class="row">
             <div class="col text-center">
-              <h5><span>Keep: {{keep.countKeep}}</span> | <span>Share: {{keep.countShare}}</span> | <span>View: {{keep.countView}}</span></h5>
+              <span>Keep {{keep.countKeep}}</span>
+              <span>Share {{keep.countShare}}</span>
+              <span>View {{keep.countView}}</span>
             </div>
           </div>
           <hr>
-          <h5 class="text-center">{{keep.title}}</h5>
+          <h5 class="card-title">{{keep.title}}</h5>
           <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
           <div v-if="loggedIn">
             <div class="row">
               <div v-if="keepButtons = keepButtons ? true: false" class="col-12 text-center ">
-                <Button class="btn btn-danger" @click="keepToVault = keepToVault ? false : true">K</Button>
-                <Button class="btn btn-dark" @click="shareBox = shareBox ? false : true"><i class="fas fa-share-alt"></i></Button>
-                <a :href="link" class="btn btn-secondary" @click="addViewCount"><i class="fas fa-link"></i></a>
+                <!-- <Button @click="keepToVault = keepToVault ? false : true">M</Button> -->
+                <Button @click="shareBox = shareBox ? false : true">S</Button>
+                <!-- <Button @click="removeKeep">D</Button> -->
+                <a :href="link" @click.prevent="addViewCount">V</a>
                 <!-- //To me removed later -->
               </div>
               <div class="col-sm-12">
@@ -56,7 +59,7 @@
 
 <script>
   export default {
-    name: 'Keeps',
+    name: 'VaultKeeps',
     data() {
       return {
         shareBox: false,
@@ -113,10 +116,15 @@
     props: ['keep', 'user'],
     methods: {
       removeKeep() {
-        console.log('This is my delete keep', this.keep.id)
-        this.$store.dispatch('deleteKeep', this.keep.id)
+        var payload = {
+            userId: this.user.id,
+            keepId: this.keep.id,
+            vaultId: this.selectedVault,
+          }
+        console.log('This is my delete Vaultkeep', payload)
+        this.$store.dispatch('deleteVaultKeep', payload)
       },
-      addToVault() {
+      moveToOtherVault() {
           console.log('Im a user id', this.user.id)
           // var userId = this.user.id
           console.log('Im a keep id', this.keep.id)
@@ -129,13 +137,7 @@
             vaultId: this.selectedVault,
           }
           console.log('Im a payload', payload)
-          this.$store.dispatch('addToVault', payload)
-          var newKeep = this.keep
-          var newCount = newKeep.countKeep + 1
-          newKeep.countKeep = newCount
-                    
-          console.log('updateKeepCount',newKeep)
-          this.$store.dispatch('updateKeep',newKeep)
+          this.$store.dispatch('moveToOtherVault', payload)
         this.selectedVault = ""
       },
       addViewCount() {
@@ -154,10 +156,7 @@
           console.log('updateShareCount',newKeep)
           this.$store.dispatch('updateKeep',newKeep)
       }
-      // close() {
-      //   console.log('part 1')
-      //   this.$emit('close')
-      // },
+     
     }
   }
 
@@ -166,13 +165,8 @@
 <style>
   .keeps {
     height: 100%;
-    /* background-color: slategrey; */
   }
-.card{
-  background-color: papayawhip;
-  border: 2px solid black;
-  border-radius: 25px;
-}
+
   .keep {
     width: 200px;
     height: 400px;
@@ -184,13 +178,15 @@
     outline-color: red; */
   }
 
- 
+  .menu:hover {
+    color: red;
+  }
+
   .img {
-    padding-top: 15px; 
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 75%;
+    width: 50%;
   }
 
   /* switch */
