@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using keepr.Models;
 using Dapper;
+using MySql.Data.MySqlClient;
 
 namespace keepr.Repositories
 {

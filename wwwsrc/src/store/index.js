@@ -133,13 +133,12 @@ export default new vuex.Store({
     },
 
     authenticateUser({ commit, dispatch }) {
-      auth;
       console.log("returning user:1");
       auth
-        .get("Account/Authenticate")
+        .get("Account/authenticate")
         // console.log("returning user:2");
         .then(res => {
-          console.log("returning user:", sessionUser);
+          console.log("returning user:", res.data);
           var sessionUser = res.data;
           console.log("returning user2:", sessionUser);
           commit("setUser", sessionUser);
