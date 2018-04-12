@@ -17,12 +17,12 @@
               <input type="password" id="password" class="form-control" v-model="user.password" placeholder="********">
             </div>
             <button type="submit" class="btn btn-success px-4">Register</button>
-            <button class="btn btn-alarm px-4" @click="$emit('closeRegister')">Sign In</button>
+            <button class="btn btn-danger px-4" @click="$emit('closeRegister')">Sign In</button>
             <div class="text-center pt-4">
-              <button class="btn btn-link px-4" @click="$emit('close')">Click here to just Browse.</button>
             </div>
           </form>
         </div>
+        <button class="btn btn-dark px-4" @click="$emit('close')">Click here to just Browse.</button>
       </div>
     </transition>
   </div>

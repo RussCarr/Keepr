@@ -162,6 +162,9 @@ export default new vuex.Store({
           commit("setUser", {});
           commit("setAuthError", { error: false, message: "" });
           commit("setUserStatus", false);
+          commit("setUserKeeps", []);
+          commit("setVaults", []);
+          commit("setUserVaultKeeps", {});
 
           router.push({
             name: "Home"
@@ -208,7 +211,7 @@ export default new vuex.Store({
       console.log("sending Vault", vault);
       api.post("/vaults", vault).then(res => {
         console.log("recieving a Vault", res);
-        dispatch("getUserVaults",vault.userId).catch(err => {
+        dispatch("getUserVaults", vault.userId).catch(err => {
           console.log(err);
         });
       });
@@ -223,7 +226,7 @@ export default new vuex.Store({
     removeVault({ commit, dispatch }, vault) {
       console.log("id", vault.id);
       api.delete(`/vaults/${vault.id}`).then(res => {
-        dispatch("getUserVaults",vault.userId).catch(err => {
+        dispatch("getUserVaults", vault.userId).catch(err => {
           console.log(err);
         });
       });
@@ -286,12 +289,10 @@ export default new vuex.Store({
         });
     },
     createKeep({ commit, dispatch }, keep) {
-      console.log('creating a keep',keep);
-      api.post("/Keeps", keep)
-      .then(res => {
-        console.log('keep has been created',res.data);
-        dispatch("getUserKeeps",keep.userId)
-        .catch(err => {
+      console.log("creating a keep", keep);
+      api.post("/Keeps", keep).then(res => {
+        console.log("keep has been created", res.data);
+        dispatch("getUserKeeps", keep.userId).catch(err => {
           console.log(err);
         });
       });
@@ -301,17 +302,16 @@ export default new vuex.Store({
       api.put(`/Keeps/${keep.id}`, keep).then(res => {
         console.log("returing keep", res.data);
         console.log("returing keepid", keep.userId);
-        dispatch("getUserKeeps",keep.userId)
-        dispatch('getAllSharedKeeps')
-        .catch(err => {
+        dispatch("getUserKeeps", keep.userId);
+        dispatch("getAllSharedKeeps").catch(err => {
           console.log(err);
         });
       });
     },
-    deleteKeep({ commit, dispatch }, payload,id) {
-      console.log("id", payload,payload.id);
+    deleteKeep({ commit, dispatch }, payload, id) {
+      console.log("id", payload, payload.id);
       api.delete(`/Keeps/${payload}`).then(res => {
-        dispatch("getUserKeeps",id).catch(err => {
+        dispatch("getUserKeeps", id).catch(err => {
           console.log(err);
         });
       });

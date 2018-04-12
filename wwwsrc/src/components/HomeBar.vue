@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-4">
                     <button class="btn btn-success " @click="$emit('showSignIn')">Sign in</button>
-                    <button class="btn btn-alert " @click="$emit('showRegister')">Register</button>
+                    <button class="btn btn-danger " @click="$emit('showRegister')">Register</button>
                 </div>
                
             </div>

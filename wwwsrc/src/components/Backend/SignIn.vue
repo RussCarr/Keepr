@@ -13,12 +13,12 @@
               <input type="password" id="password" class="form-control" v-model="user.password" placeholder="********">
             </div>
             <button class="btn btn-success px-4" type="submit">Sign in</button>
-            <button class="btn btn-alarm px-4" @click="$emit('closeSignIn')">Register</button>
+            <button class="btn btn-danger px-4" @click="$emit('closeSignIn')">Register</button>
             <div class="text-center pt-4">
-              <button class="btn btn-link px-4" @click="$emit('close')">Click here to just Browse.</button>
             </div>
           </form>
         </div>
+        <button class="btn btn-dark px-4" @click="$emit('close')">Click here to just Browse.</button>
       </div>
     </transition>
   </div>
