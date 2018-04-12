@@ -1,36 +1,36 @@
 <template>
-    <!-- template for the modal component -->
-    <transition name="modal">
-      <div class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="modal-header">
-              <p>
-                Create a Keep
-              </p>
-            </div>
-            <div class="modal-body">
-                         <form>
-                <p>Title...required</p>
-                <input v-model="newKeep.title" placeholder="title" required>
-                <p>Img...required</p>
-                <input v-model="newKeep.img" placeholder="Img" required>
-                <p>Link...required</p>
-                <input v-model="newKeep.link" placeholder="link" required>
-                <p>Tags...required</p>
-                <input v-model="newKeep.tags" placeholder="tags" required>
-                <button @click.prevent="sendKeep" type="submit">Submit</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button @click="$emit('close')">
-                Done
-              </button>
-            </div>
+  <!-- template for the modal component -->
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="modal-header">
+            <p>
+              Create a Keep
+            </p>
+          </div>
+          <div class="modal-body">
+            <form>
+              <input v-model="newKeep.title" placeholder="title" required>
+              <p>Title...required</p>
+              <input v-model="newKeep.img" placeholder="Img" required>
+              <p>Img...required</p>
+              <input v-model="newKeep.link" placeholder="link" required>
+              <p>Link...required</p>
+              <input v-model="newKeep.tags" placeholder="tags" required>
+              <p>Tags...required</p>
+              <button @click.prevent="sendKeep" type="submit">Submit</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button @click="$emit('close')">
+              Done
+            </button>
           </div>
         </div>
       </div>
-    </transition>
+    </div>
+  </transition>
   </div>
 </template>
 
@@ -48,11 +48,11 @@
         },
       }
     },
-    
+
     methods: {
       sendKeep() {
         console.log("This is a Keep", this.newKeep)
-      
+
         this.$store.dispatch('createKeep', this.newKeep)
         this.newKeep = {
           img: "",
@@ -83,9 +83,11 @@
     display: table-cell;
     vertical-align: middle;
   }
-input{
-  width: 500px;
-}
+
+  input {
+    width: 500px;
+  }
+
   .modal-container {
     width: 600px;
     margin: 0px auto;

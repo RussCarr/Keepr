@@ -17,25 +17,23 @@
           <div v-if="loggedIn">
             <div class="row">
               <div v-if="keepButtons = keepButtons ? true: false" class="col-12 text-center ">
-                <Button class="btn btn-darks" @click="shareBox = shareBox ? false : true"><i class="fas fa-share-alt"></i></Button>
+                <Button class="btn btn-dark" @click="shareBox = shareBox ? false : true">
+                  <i class="fas fa-share-alt"></i>
+                </Button>
               </div>
-              <div class="col-sm-12">
-                  <div v-if="shareBox" class="shareButton">
-                    <p>
-                        <a :href='facebook' class="share-icon" @click='addShareCount' target="_blank" title="Share on Facebook">
-                            <i class="fab fa-facebook"></i>
-                          </a>
-                    </p>
-                    <p>
-                      <a class="share-icon" @click='addShareCount' :href="twitter" target="_blank" >
-                        <i class="fab fa-twitter"></i>
-                      </a>
-                    </p>
-
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm-12 text-center">
+                <div v-if="shareBox" class="shareButton">
+                  <a :href='facebook' class="share-icon" @click='addShareCount' target="_blank" title="Share on Facebook">
+                    <i class="fa-2x fab fa-facebook"></i>
+                  </a>
+                  <a class="share-icon" @click='addShareCount' :href="twitter" target="_blank">
+                    <i class="fa-2x fab fa-twitter"></i>
+                  </a>
                 </div>
               </div>
             </div>
-            
             <div class="col">
               <div v-if="keepToVault" @mouseleave="keepToVault = false" class="text-center keepButton mt-3">
                 <select v-model="selectedVault" @change="addToVault">
@@ -61,7 +59,7 @@
         keepToVault: false,
         selectedVault: "",
         shared: this.keep.shared,
-        
+
         link: this.keep.link
       }
     },
@@ -74,7 +72,7 @@
           this.$store.dispatch('updateKeep', this.keep)
         } else {
           this.keep.shared = 0
-           // console.log(this.keep, "payload")
+          // console.log(this.keep, "payload")
           this.$store.dispatch('updateKeep', this.keep)
         }
       }
@@ -91,52 +89,52 @@
       },
       facebook() {
         var string = "https://www.facebook.com/sharer/sharer.php?u=https://localhost:5000/" + this.keep.id
-        return   string + "&t=Keepr"
+        return string + "&t=Keepr"
       },
       twitter() {
         var string = "https://twitter.com/intent/tweet?url=https://localhost:5000/" + this.keep.id
-        return   string + "&text=Keepr&via=Keepr"
+        return string + "&text=Keepr&via=Keepr"
       }
     },
     props: ['keep', 'user'],
     methods: {
       removeKeep() {
         var payload = {
-            userId: this.user.id,
-            keepId: this.keep.id,
-            vaultId: this.selectedVault,
-          }
+          userId: this.user.id,
+          keepId: this.keep.id,
+          vaultId: this.selectedVault,
+        }
         // console.log('This is my delete Vaultkeep', payload)
         this.$store.dispatch('deleteVaultKeep', payload)
       },
       moveToOtherVault() {
-          // console.log('Im a user id', this.user.id)
-          // console.log('Im a keep id', this.keep.id)
-          // console.log('Im a vault id', this.selectedVault)
-          var payload = {
-            userId: this.user.id,
-            keepId: this.keep.id,
-            vaultId: this.selectedVault,
-          }
-          // console.log('Im a payload', payload)
-          this.$store.dispatch('moveToOtherVault', payload)
+        // console.log('Im a user id', this.user.id)
+        // console.log('Im a keep id', this.keep.id)
+        // console.log('Im a vault id', this.selectedVault)
+        var payload = {
+          userId: this.user.id,
+          keepId: this.keep.id,
+          vaultId: this.selectedVault,
+        }
+        // console.log('Im a payload', payload)
+        this.$store.dispatch('moveToOtherVault', payload)
         this.selectedVault = ""
       },
       addViewCount() {
         var newKeep = this.keep
-          var newCount = newKeep.countView + 1
-          newKeep.countView = newCount
-          // console.log('updateViewCount',newKeep)
-          this.$store.dispatch('updateKeep',newKeep)
+        var newCount = newKeep.countView + 1
+        newKeep.countView = newCount
+        // console.log('updateViewCount',newKeep)
+        this.$store.dispatch('updateKeep', newKeep)
       },
       addShareCount() {
         var newKeep = this.keep
-          var newCount = newKeep.countShare + 1
-          newKeep.countShare = newCount
-          // console.log('updateShareCount',newKeep)
-          this.$store.dispatch('updateKeep',newKeep)
+        var newCount = newKeep.countShare + 1
+        newKeep.countShare = newCount
+        // console.log('updateShareCount',newKeep)
+        this.$store.dispatch('updateKeep', newKeep)
       }
-     
+
     }
   }
 
@@ -158,16 +156,18 @@
   .menu:hover {
     color: red;
   }
-.card{
-  padding: 20px;
-  margin-top: 20px;
-}
+
+  .card {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
   .img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 75%;
-    padding-bottom: 15px; 
+    padding-bottom: 15px;
   }
 
   /* switch */

@@ -9,10 +9,10 @@
           </div>
           <div class="modal-body">
             <form>
-              <p>Title...required</p>
               <input v-model="newVault.name" placeholder="name" required>
-              <p>Description...required</p>
+              <p>Title...required</p>
               <input v-model="newVault.description" placeholder="description" required>
+              <p>Description...required</p>
               <button @click.prevent="sendVault" type="submit">Submit</button>
             </form>
           </div>
