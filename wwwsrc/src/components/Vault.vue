@@ -14,8 +14,8 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-light" @click="$emit('close')">
-                    OK
+                  <button class="btn btn-danger" @click="$emit('close')">
+                    close
                   </button>
                 </div>
               </div>

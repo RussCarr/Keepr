@@ -41,7 +41,7 @@
             <h3 class="text-center text-light">My Keeps</h3>
           </div>
         </div>
-        <div class="row">
+        <div class="row keeps">
           <myKeeps :keep='keep' v-for='keep in keeps' :key='keep.id'></myKeeps>
 
         </div>
@@ -100,5 +100,8 @@
     margin-left: 20px;
     margin-right: 20px;
     
+  }
+  .keeps{
+    margin-left: 50px;
   }
 </style>

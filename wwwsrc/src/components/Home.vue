@@ -24,11 +24,11 @@
     computed: {
       keeps() {
         return this.$store.state.allSharedKeeps
-        console.log(this.$store.state.allSharedKeeps)
+        // console.log(this.$store.state.allSharedKeeps)
       }
     },
     mount() {
-      console.log("sending to get all sharedKeeps")
+      // console.log("sending to get all sharedKeeps")
       this.$store.dispatch('getAllSharedKeeps')
     },
     methods: {
@@ -37,7 +37,7 @@
         this.showSignIn = true
       },
       openRegister() {
-        console.log('part 3')
+        // console.log('part 3')
         this.showSignIn = false
         this.showRegister = true
       }

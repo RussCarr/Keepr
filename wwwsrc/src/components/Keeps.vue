@@ -150,7 +150,10 @@
 </script>
 
 <style>
+.keeps{
 
+    margin-left: 50px;
+}
   .card {
     background-color: papayawhip;
     border: 2px solid black;
@@ -161,7 +164,6 @@
     width: 200px;
     height: 400px;
     justify-content: center;
-    margin: 0;
     border: 2px solid black;
   }
 

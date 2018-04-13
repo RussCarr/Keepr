@@ -5,7 +5,12 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
-            <p>Create a Vault</p>
+            <h4>
+              Create a Vault
+            </h4>
+            <button class="btn btn-danger" @click="$emit('close')">
+              close
+            </button>
           </div>
           <div class="modal-body">
             <form>
@@ -13,15 +18,10 @@
               <p>Title...required</p>
               <input v-model="newVault.description" placeholder="description" required>
               <p>Description...required</p>
-              <button @click.prevent="sendVault" type="submit">Submit</button>
+              <button class="btn btn-success form-btn" @click.prevent="sendVault" type="submit">Submit</button>
             </form>
           </div>
-          <div class="modal-footer">
-            <button @click="$emit('close')">
-              OK
-            </button>
-          </div>
-        </div>
+               </div>
       </div>
     </div>
   </transition>
@@ -48,6 +48,7 @@
           name: "",
           description: ""
         }
+        this.$emit('close')
       },
     }
   }
@@ -55,6 +56,15 @@
 </script>
 
 <style scoped>
+  
+  .form-btn {
+  margin-left: 335px;
+  }
+  input {
+    width: 400px;
+  }
+  
+  
   .modal-mask {
     position: fixed;
     z-index: 9998;
@@ -81,6 +91,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
+    border-radius: 25px;
   }
 
   .modal-header h3 {

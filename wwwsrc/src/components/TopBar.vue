@@ -48,7 +48,7 @@
 
 <style scoped>
     .topbar {
-        display: flex;
+        /* display: flex; */
         border: 2px solid black;
         margin-bottom: 50px;
 

@@ -85,11 +85,11 @@
         this.$store.dispatch('getAllUsers')
       },
       deletekeep() {
-        console.log("This is a delte keep", this.keep)
+        // console.log("This is a delte keep", this.keep)
         this.$store.dispatch('deletekeep', this.keep)
       },
       keepToEdit() {
-        console.log("This is a keep", this.keep)
+        // console.log("This is a keep", this.keep)
         this.$emit('keepToEdit', this.keep)
       }
     }

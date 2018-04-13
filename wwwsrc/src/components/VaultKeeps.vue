@@ -1,5 +1,5 @@
 <template>
-  <div class="row keeps">
+  <div class="row vaultKeeps">
     <div class="col-sm-12 col-md-6 col-lg-3 ml-3 mr-3 ">
       <div class="card" @mouseenter="keepButtons = true" @mouseleave="keepButtons = false" style="width: 18rem;">
         <img class="card-img-top img" :src="imgLink" alt="Card image cap">
@@ -141,11 +141,7 @@
 </script>
 
 <style>
-  .keeps {
-    height: 100%;
-  }
-
-  .keep {
+   .keep {
     width: 200px;
     height: 400px;
     justify-content: center;
@@ -153,9 +149,7 @@
     border: 2px solid black;
   }
 
-  .menu:hover {
-    color: red;
-  }
+ 
 
   .card {
     padding: 20px;

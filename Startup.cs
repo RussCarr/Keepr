@@ -18,11 +18,11 @@ namespace keepr
 {
   public class Startup
   {
-    private readonly string _connectionString = "";
+    private readonly string _connectionString = "server=sql3.freemysqlhosting.net;port=3306;database=sql3232333;user id=sql3232333;password=4URb24H2nG";
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
-      _connectionString = configuration.GetSection("DB").GetValue<string>("mySQLConnectionString");
+      // _connectionString = configuration.GetSection("DB").GetValue<string>("mySQLConnectionString");
     }
 
     public IConfiguration Configuration { get; }

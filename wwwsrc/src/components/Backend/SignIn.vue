@@ -8,7 +8,7 @@
               <label class="ml-4" for="email">Email:</label>
               <input type="text" id="email" class="form-control" v-model="user.email" placeholder="my@address.com">
             </div>
-            <div class="form-group">
+            <div class="form-group formed">
               <label class="ml-4" for="password">Password:</label>
               <input type="password" id="password" class="form-control" v-model="user.password" placeholder="********">
             </div>
@@ -49,8 +49,8 @@
       // },
     }
   }
-
-</script>
+  
+  </script>
 
 <style scoped>
   div.signIn {
@@ -98,4 +98,7 @@
     margin-top: 125px;
 
   }
+  /* .formed{
+  border-radius: 20px !important;
+  } */
 </style>

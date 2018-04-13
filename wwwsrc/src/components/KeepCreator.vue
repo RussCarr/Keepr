@@ -5,9 +5,12 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
-            <p>
+            <h4>
               Create a Keep
-            </p>
+            </h4>
+            <button class="btn btn-danger" @click="$emit('close')">
+              close
+            </button>
           </div>
           <div class="modal-body">
             <form>
@@ -19,13 +22,11 @@
               <p>Link...required</p>
               <input v-model="newKeep.tags" placeholder="tags" required>
               <p>Tags...required</p>
-              <button @click.prevent="sendKeep" type="submit">Submit</button>
+              <button class="btn btn-success form-btn" @click.prevent="sendKeep" type="submit">Submit</button>
             </form>
           </div>
           <div class="modal-footer">
-            <button @click="$emit('close')">
-              Done
-            </button>
+            
           </div>
         </div>
       </div>
@@ -51,7 +52,7 @@
 
     methods: {
       sendKeep() {
-        console.log("This is a Keep", this.newKeep)
+        // console.log("This is a Keep", this.newKeep)
 
         this.$store.dispatch('createKeep', this.newKeep)
         this.newKeep = {
@@ -60,6 +61,7 @@
           tags: "",
           title: ""
         }
+        this.$emit('close')
       },
     }
   }
@@ -67,6 +69,10 @@
 </script>
 
 <style scoped>
+  .form-btn {
+  margin-left: 435px;
+  }
+  
   .modal-mask {
     position: fixed;
     z-index: 9998;
@@ -97,6 +103,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
+    border-radius: 25px;
   }
 
   .modal-header h3 {
